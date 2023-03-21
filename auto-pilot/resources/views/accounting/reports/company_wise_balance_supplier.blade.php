@@ -1,0 +1,43 @@
+@extends('layouts.app')
+
+@section('content')
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-4 col-md-4 com-sm-12 ">
+            <div class="card">
+                  <div class="card-header">
+                      <h2 class="card-title fwbold">Supplier Balance Report</h2>
+                  </div>                  
+                  <div class="card-body">
+                     <div class="row">
+                     <div class="col-12">
+                        <div class="form-group ">
+                        <button type="submit" class="btn btn-info mx-auto"> <i class="fa fa-print "> Print Preview</i> </button>
+                      </div>
+                     </div>
+                    </div>
+                  </div>
+              
+              </div>          
+
+          </div>
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+@endsection

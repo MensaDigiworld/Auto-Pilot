@@ -1,0 +1,62 @@
+@extends('layouts.app')
+
+@section('content')
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-4 col-md-4 com-sm-12 ">
+            <div class="card">
+                  <div class="card-header">
+                      <h2 class="card-title fwbold">Balance Sheet</h2>
+                  </div>                  
+                  <div class="card-body">
+                      <form action="" method="post">
+                    <div class="row mt-2">
+                     <div class="col-4 text-right">
+                        <label for=""><h4>Year</h4></label>
+                     </div>
+                     <div class="col-8">
+                        <div class="form-group">
+                          <select class="form-control select2" name="">
+                                  <option>Select Year</option>
+                                  <option>2000</option>
+                                  <option>2022</option>
+                        </select>
+                      </div>
+                     </div>
+                    </div>
+
+                     <div class="row mt-2">
+                     <div class="col-12">
+                        <div class="form-group float-end">                          
+                        <button type="submit" class="btn btn-info float-right  ml-2"> <i class="fa fa-print "> Print Preview</i> </button>
+                        <button type="submit" class="btn btn-info float-right ml-2"> <i class="fa fa-print "> Print Preview Details</i> </button>
+                      </div>
+                     </div>
+                    </div>
+                      </form>
+
+                  </div>
+              
+              </div>          
+
+          </div>
+
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+@endsection
