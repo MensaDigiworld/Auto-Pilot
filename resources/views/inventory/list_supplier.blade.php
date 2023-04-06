@@ -15,9 +15,9 @@
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Supplier List</li>
               <li class="breadcrumb-item active"></li>
-              <a href="{{ route('inventory.new_supplier')}}" class="btn float-right btn-primary p-1"><i class="fas fa-plus"></i> Add New</a>
+              <a href="{{ route('suppliers.create')}}" class="btn float-right btn-primary p-1"><i class="fas fa-plus"></i> Add New</a>
             </ol>
-            
+
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -32,38 +32,43 @@
           <div class="col-lg-12 col-12">
 
             <div class="card">
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
+
               <div class="card-header">
             <div class="row">
                       <div class="col-sm-12 col-lg-3 col-md-3">
+                        <form action="{{ route('supllier.status') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                            @csrf
                         <div class="form-group form-group-sm">
-                          
-                        
-                            <select class="form-control select2" name="status">
+
+
+                            <select class="form-control select2" name="status" onchange="this.form.submit()">
                               <option>Select Status Type</option>
-                              <option>Active</option>
-                              <option>Inactive</option>
-                            </select> 
+                              <option value="all">All</option>
+                              <option value="1">Active</option>
+                              <option value="0">Inactive</option>
+                            </select>
                         </div>
+                        </form>
                     </div>
-                    
-               
+
+
                     <div class="col-sm-12 col-lg-4 col-md-4">
                       <div class="form-group form-group-sm">
-                        
+<form action="{{ route('supllier.search') }}" method="POST">
+    @csrf
                         <div class="input-group input-group-sm">
-                        <input type="search" class="form-control form-control-sm" placeholder="" value="">
+                        <input type="text" class="form-control form-control-sm" placeholder="" name="search">
                         <div class="input-group-append">
                         <button type="submit" class="btn btn-lg btn-info">
                         <i class="fa fa-search"></i> Search
                         </button>
                         </div>
                         </div>
+                    </form>
                         </div>
                   </div>
 
-            
+
 
               </div>
               </div>
@@ -77,21 +82,35 @@
                       <th>Country </th>
                       <th>Contact No </th>
                       <th>Status</th>
-                      <th>User</th>
+                      {{-- <th>User</th> --}}
                       <th colspan="2" class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($suppliers as $supplier)
+
+
                     <tr>
-                      <td>TOKYO MOTORS</td>
-                      <td>Japan</td>
-                      <td>+819852545</td>
-                      <td>Active</td>
-                      <td></td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i> Edit</a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Remove</a></td>
-                      
+                      <td>{{ $supplier->name }}</td>
+                      <td>{{ $supplier->country_code }}</td>
+                      <td>{{ $supplier->contact }}</td>
+                      <td>{{ $supplier->status == 1 ? 'Active':'Deactive' }}</td>
+                      {{-- <td></td> --}}
+                      <td class="text-center"><a href="{{ route('suppliers.edit',$supplier->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i> Edit</a>
+                        <form action="{{ route('suppliers.destroy',$supplier->id) }}"
+                            method="POST" style="display: inline;">
+                            @csrf()
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+                                <span>Remove</span>
+                            </button>
+                        </form>
+
+                        {{-- <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Remove</a></td> --}}
+
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

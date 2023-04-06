@@ -34,7 +34,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
+              <form action="{{ route('exteriorclors.store') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                 @csrf
                 <div class="card-body">
                   <div class="row">
@@ -47,7 +47,7 @@
                     <div class="col-12">
                       <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Color Code <span class="text-danger fw-600">*</span></label>
-                      <input type="text" class="form-control form-control-sm" id="inputEmail3" value="" name="name" placeholder="e.g #fff" required>
+                      <input type="text" class="form-control form-control-sm" id="inputEmail3" value="" name="color_code" placeholder="e.g #fff" required>
                       </div>
                     </div>
 
@@ -69,7 +69,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">List of Color</h3>
-                
+
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered">
@@ -82,15 +82,38 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($exteriorcolors as $key=>$item)
+
+
                     <tr>
-                      <td>1</td>
-                      <td>red</td>
-                      <td>#f00</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-                      
-                    </tr>       
-                          
+                      <td>{{ $key+1 }}</td>
+                      <td>{{ $item->name }}</td>
+                      <td>{{ $item->color_code }}</td>
+                      <td class="text-center">
+                        {{-- <button class="btn btn-sm btn-danger" onclick="getColor({{ $item->id }})"><i class="fas fa-edit"></i></button> --}}
+                        {{-- <button type="button" class="btn btn-primary" data-toggle="modal"data-target="#details-modal-{{ $cardeal->id }}" >View</button> --}}
+                        {{-- <a href="{{ route('interiorcolors.edit') }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a> --}}
+
+                        <button type="button"
+                        class="btn btn-primary" data-toggle="modal"
+                        data-target="#details-modal-{{ $item->id }}" ><i class="fas fa-edit"></i></button>
+
+
+                        <form action="{{ route('exteriorclors.destroy',$item->id) }}"
+                            method="POST" style="display: inline;">
+                            @csrf()
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+
+                            </button>
+                        </form>
+                        {{-- <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a> --}}
+
+                        </td>
+
+                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -106,11 +129,70 @@
               </div>
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    @foreach ($exteriorcolors as $key=>$item)
+
+{{-- modal start --}}
+<div class="modal fade" id="details-modal-{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="details-modal-{{ $item->id }}"
+    aria-hidden="true">
+    <form action="{{ route('exteriorcolor.update') }}" method="post">
+        @csrf
+        <input type="hidden" name="color_id" value="{{ $item->id }}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Interior Color </h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Name:</label>
+              <input type="text" class="form-control" id="name" name="name" value="{{ $item->name }}">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Color Code:</label>
+              <input type="text" class="form-control" id="color_code" name="color_code" value="{{ $item->color_code }}">
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+</form>
+  </div>
+@endforeach
   </div>
 @endsection
+
+
+@push('js')
+{{-- <script>
+    function getColor(id) {
+        // let id = $(this).val(id);
+        console.log(id);
+                    $.ajax({
+                        type: "GET",
+                        url: "/get-interior-color-data/" + id,
+                        success: function (data) {
+
+                            $('#name').val(data.name);
+                            $('#color_code').val(data.name);
+
+
+                            // $('#dataHeadshot').text("Headshot: " + data.headshot);
+                            $('#exampleModal').modal('show');
+                        }
+                    });
+    }
+</script> --}}
+@endpush

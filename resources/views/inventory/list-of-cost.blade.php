@@ -30,8 +30,9 @@
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="card">
               <div class="card-header ">
-                <h1 class="card-title"><b>List of Cost Type</b></h1> 
-                <button type="submit" class="btn btn-success float-right"><i class="fas fa-plus"> Add New</i> </button>               
+                <h1 class="card-title"><b>List of Cost Type</b></h1>
+                <a href="{{ route('inventory.cost_type_add')}}" class="btn btn-success float-right">Add New</a>
+
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered">
@@ -44,28 +45,34 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($types as $type)
+
+
                     <tr>
-                      <td>1</td>
-                      <td>Diesel</td>
-                      <td>Active</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit">Edit</i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt">Remove</i></a></td>
-                      
-                    </tr>       
-                    <tr>
-                      <td>2</td>
-                      <td>Petrol</td>
-                      <td>Inactive</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit">Edit</i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt">Remove</i></a></td>                      
-                    </tr>           
+                      <td>{{ $loop->index++ }}</td>
+                      <td>{{ $type->name }}</td>
+                      <td>{{ $type->status == 1 ? 'Active':'Deactive' }}</td>
+                      <td class="text-center"><a href="{{ route('inventory.cost_type_edit',$type->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit">Edit</i></a>
+
+                        {{-- <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt">Remove</i></a></td> --}}
+                        <form action="{{ route('inventory.cost_type_delete') }}"
+                            method="POST" style="display: inline;">
+
+                            @csrf()
+                           <input type="hidden" name="costType_id" value="{{ $type->id }}">
+                            <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash-alt">Remove</i>
+                            </button>
+                        </form>
+                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

@@ -40,7 +40,7 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
-                      <label for="inputEmail3" class="col-form-label text-lg">Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto, 
+                      <label for="inputEmail3" class="col-form-label text-lg">Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto,
                         2WD, 5 Seater,Hybrid)
                         </label>
                       </div>
@@ -49,128 +49,128 @@
                     <div class="col-sm-12 col-lg-4 col-md-4">
                       <div class="form-group">
                         <label for="inputEmail3" class="col-form-label">Manufacturer <span class="text-danger fw-600">*</span></label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select vehicle Manufacturer</option>
                         <option >Passenger</option>
                         <option >Commercial</option>
-                        <option >Bike</option>              
+                        <option >Bike</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Fuel Type <span class="text-danger fw-600">*</span></label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select Fuel Type</option>
                         <option >Japan</option>
                         <option >China</option>
-                        <option >USA</option>              
+                        <option >USA</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Loading Capacity </label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select Loading Capacity</option>
                         <option >Japan</option>
                         <option >China</option>
-                        <option >USA</option>              
+                        <option >USA</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Model <span class="text-danger fw-600">*</span></label>
-                  
+
                     <select class="form-control select2" name="supplier">
                       <option >Select vehicle Model</option>
                       <option >Passenger</option>
                       <option >Commercial</option>
-                      <option >Bike</option>              
+                      <option >Bike</option>
                     </select>
                   </div>
                   </div>
                     <div class="col-sm-12 col-lg-4 col-md-4">
                       <div class="form-group">
                         <label for="inputEmail3" class="col-form-label">Engine CC <span class="text-danger fw-600">*</span></label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select Engine CC</option>
                         <option >Passenger</option>
                         <option >Commercial</option>
-                        <option >Bike</option>              
+                        <option >Bike</option>
                       </select>
                     </div>
                   </div>
-                    
+
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Number of Wheels </label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select Number of Wheels</option>
                         <option >Japan</option>
                         <option >China</option>
-                        <option >USA</option>              
+                        <option >USA</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Chassis Code </label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select Chassis Code</option>
                         <option >Japan</option>
                         <option >China</option>
-                        <option >USA</option>              
+                        <option >USA</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Transmission <span class="text-danger fw-600">*</span></label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select Transmission </option>
                         <option >Japan</option>
                         <option >China</option>
-                        <option >USA</option>              
+                        <option >USA</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Body Type/Type <span class="text-danger fw-600">*</span></label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select Body Type/Type</option>
                         <option >Japan</option>
                         <option >China</option>
-                        <option >USA</option>              
+                        <option >USA</option>
                       </select>
                     </div>
                   </div>
-                    
+
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Drive system/Drive Train</label>
-                    
+
                       <select class="form-control select2" name="supplier">
                         <option >Select Drive system/Drive Train</option>
                         <option >Japan</option>
                         <option >China</option>
-                        <option >USA</option>              
+                        <option >USA</option>
                       </select>
                     </div>
                   </div>
-                  
-                  
-                  
+
+
+
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -194,40 +194,40 @@
                 <div class="row">
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
-                      
-                    
+
+
                         <select class="form-control select2" name="month">
                           <option selected>Select vehicle Manufacture</option>
                           <option>Returned</option>
-                        </select> 
+                        </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
-                      
-                    
+
+
                         <select class="form-control select2" name="month">
                           <option selected>Select vehicle Model</option>
                           <option>Returned</option>
-                        </select> 
+                        </select>
                     </div>
                   </div>
-                
+
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
-                      
-                    
+
+
                         <select class="form-control select2" name="month">
                           <option selected>Select Chassis code</option>
                           <option>Returned</option>
-                        </select> 
+                        </select>
                     </div>
                   </div>
-                
-           
+
+
                     <div class="col-sm-12 col-lg-3 col-md-3">
                       <div class="form-group">
-                        
+
                         <div class="input-group input-group-sm">
                         <input type="search" class="form-control form-control-sm" placeholder="" value="">
                         <div class="input-group-append">
@@ -239,7 +239,7 @@
                         </div>
                   </div>
 
-        
+
 
                 </div>
               </div>
@@ -259,15 +259,15 @@
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td>Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto, 
+                      <td>Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto,
                         2WD, 5 Seater,Hybrid)</td>
                       <td>Hybrid</td>
                       <td>Sedan</td>
                       <td>China</td>
                       <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
                           <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-                      
-                    </tr>       
+
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -283,10 +283,10 @@
               </div>
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
-        
+
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

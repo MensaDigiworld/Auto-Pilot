@@ -19,9 +19,9 @@
                     <div class="info-box-content">
                     <span class="info-box-text">Total Stock</span>
                     <span class="info-box-number text-lg">20</span>
-                    
+
                     </div>
-                    
+
                   </div>
 
 
@@ -34,9 +34,9 @@
                     <div class="info-box-content">
                     <span class="info-box-text">Transferred to Others Showroom</span>
                     <span class="info-box-number text-lg">15</span>
-                    
+
                     </div>
-                    
+
                   </div>
 
 
@@ -50,7 +50,7 @@
                     <span class="info-box-text">Transferred Received</span>
                     <span class="info-box-number text-lg">2</span>
                     </div>
-                    
+
                   </div>
 
 
@@ -74,7 +74,7 @@
                     <div class="info-box-content">
                     <span class="info-box-text text-lg">Inventory Manager</span>
                     </div>
-                  
+
                   </div>
                 </a>
                 </div>
@@ -86,9 +86,9 @@
                     <div class="info-box-content">
                       <span class="info-box-text text-lg">Receive Vehicle Transfer</span>
                     </div>
-                  
+
                   </div>
-                </a>           
+                </a>
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -97,7 +97,7 @@
                     <span class="info-box-icon bg-warning"><i class="fas fa-exchange-alt"></i></span>
                     <div class="info-box-content">
                       <span class="info-box-text text-lg">Transferred Vehicle Manager</span>
-                    </div>                  
+                    </div>
                   </div>
                 </a>
                 </div>
@@ -114,7 +114,7 @@
                   </div>
                 </a>
                 </div>
-              
+
                 <div class="col-lg-4 col-md-4 col-sm-4">
 
                   <a href="{{ route('inventory.list_vehicle_transfer_other_shoroom')}}"><div class="info-box">
@@ -122,7 +122,7 @@
                     <div class="info-box-content">
                       <span class="info-box-text text-lg">Return Vehicle from Partners</span>
                     </div>
-                    
+
                   </div>
                 </a>
 
@@ -193,7 +193,7 @@
                     <div class="float-left"><i class="fas fa-plus border-right pr-2"></i> Add New Supplier </div>
                   </a>
 
-                  <a href="{{ route('inventory.new_business_partner')}}" class="btn btn-app btn-md text-dark p-1 bg-primary">
+                  <a href="{{ route('businessPartners.create')}}" class="btn btn-app btn-md text-dark p-1 bg-primary">
                     {{-- <span class="badge bg-danger ">12</span> --}}
                     <div class="float-left"><i class="fas fa-user border-right pr-2"></i> Add New Business Partner </div>
                   </a>
