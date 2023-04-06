@@ -15,9 +15,9 @@
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Warehouse/Partner Showroom List</li>
               <li class="breadcrumb-item active"></li>
-              <a href="{{ route('inventory.new_warehouse_showroom')}}" class="btn float-right btn-primary p-1"><i class="fas fa-plus"></i> Add New</a>
+              <a href="{{ route('showrooms.create')}}" class="btn float-right btn-primary p-1"><i class="fas fa-plus"></i> Add New</a>
             </ol>
-            
+
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -32,37 +32,42 @@
           <div class="col-lg-12 col-12">
 
             <div class="card">
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
+
               <div class="card-header">
             <div class="row">
                       <div class="col-sm-12 col-lg-3 col-md-3">
+                        <form action="{{ route('showroom.search') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                            @csrf
                         <div class="form-group form-group-sm">
-                                                 
-                            <select class="form-control select2" name="status">
-                              <option>Select Status Type</option>
-                              <option>Active</option>
-                              <option>Inactive</option>
-                            </select> 
+
+                            <select class="form-control select2" name="status" onchange="this.form.submit()" >
+                              <option >Select Status Type</option>
+                              <option value="all">All</option>
+                              <option value="1">Active</option>
+                              <option value="0">Inactive</option>
+                            </select>
                         </div>
+                        </form>
                     </div>
-                    
-               
+
+
                     <div class="col-sm-12 col-lg-4 col-md-4">
                       <div class="form-group form-group-sm">
-                        
+                        <form action="{{ route('showroom.search.type') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                            @csrf
                         <div class="input-group input-group-sm">
-                        <input type="search" class="form-control form-control-sm" placeholder="" value="">
+                        <input type="text" class="form-control form-control-sm" placeholder="" value="" name="search">
                         <div class="input-group-append">
                         <button type="submit" class="btn btn-lg btn-info">
                         <i class="fa fa-search"></i> Search
                         </button>
                         </div>
                         </div>
+                        </form>
                         </div>
                   </div>
 
-            
+
 
               </div>
               </div>
@@ -78,24 +83,40 @@
                       <th>Contact</th>
                       <th>Address</th>
                       <th>Status</th>
-                      <th>User</th>
+                      {{-- <th>User</th> --}}
                       <th colspan="2" class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($showrooms as $key=>$showroom)
+
+
                     <tr>
-                      <td>C & F Agent</td>
-                      <td>7 STAR AGENCY</td>
-                      <td>+819852545</td>
-                      <td>+819852545</td>
-                      <td>+819852545</td>
-                      <td>Active</td>
-                      <td></td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i> Edit</a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Remove</a></td>
-                      
+                      <td>{{ $key ++ }}</td>
+                      <td>{{ $showroom->type }}</td>
+                      <td>{{ $showroom->name }}</td>
+                      <td>{{ $showroom->contact }}</td>
+                      <td>{{ $showroom->address }}</td>
+                      <td>{{ $showroom->status == 1 ? 'Active':'Deactive' }}</td>
+
+                      <td class="text-center"><a href="{{ route('showrooms.edit',$showroom->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i> Edit</a>
+                          {{-- <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> </a> --}}
+
+                          <form action="{{ route('showrooms.destroy',$showroom->id) }}"
+                            method="POST" style="display: inline;">
+                            @csrf()
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+                                <span>Remove</span>
+                            </button>
+                        </form>
+
+
+                        </td>
+
                     </tr>
-                    
+                    @endforeach
                   </tbody>
                 </table>
               </div>

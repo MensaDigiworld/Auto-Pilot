@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="{{ asset('/dist/css/style.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('/dist/css/adminlte.min.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 <body class="hold-transition sidebar-mini accent-navy layout-fixed layout-footer-fixed layout-navbar-fixed text-sm">
     <div class="wrapper">
@@ -49,7 +50,7 @@
   @include('layouts.sidebar')
 
   @if (Route::currentRouteName() =='home' || Request::is('Business-Setup/*'))
-  
+
   @yield('content')
 
   @else
@@ -134,5 +135,7 @@
 
     </script>
 @include('modal')
+
+@stack('js')
 </body>
 </html>

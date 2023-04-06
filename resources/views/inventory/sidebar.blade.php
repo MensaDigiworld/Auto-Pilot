@@ -326,21 +326,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_color_interior')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_color_interior'])}}">
+                <a href="{{ route('interiorcolors.index')}}" class="nav-link {{ menuactive(['interiorcolors.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Interior Color</p>
                 </a>
               </li>
                 <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_color_exterior')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_color_exterior'])}}">
+                <a href="{{ route('exteriorclors.index')}}" class="nav-link {{ menuactive(['exteriorclors.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Exterior Color</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item {{ rootmenuactive(['inventory.new_supplier','inventory.list_supplier','inventory.new_business_partner','inventory.list_business_partner','inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}}">
-            <a href="#" class="nav-link {{ menuactive(['inventory.new_supplier','inventory.list_supplier','inventory.new_business_partner','inventory.list_business_partner','inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}}">
+          <li class="nav-item {{ rootmenuactive(['suppliers.create','suppliers.index','inventory.new_business_partner','inventory.list_business_partner','inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}}">
+            <a href="#" class="nav-link {{ menuactive(['suppliers.create','suppliers.index','inventory.new_business_partner','inventory.list_business_partner','inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}}">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>
                 Business Partner
@@ -348,16 +348,16 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item {{ childmenuactive(['inventory.new_supplier','inventory.list_supplier'])}} {{ rootmenuactive(['add-irc','inventory.list_supplier'])}}">
+              <li class="nav-item {{ childmenuactive(['suppliers.create','suppliers.index'])}} {{ rootmenuactive(['add-irc','suppliers.index'])}}">
                 <a href="" class="nav-link">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Supplier
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview {{ childmenushow(['inventory.new_supplier','inventory.list_supplier'])}}">
+                <ul class="nav nav-treeview {{ childmenushow(['suppliers.create','suppliers.index'])}}">
                   <li class="nav-item">
-                    <a href="{{ route('inventory.new_supplier')}}" class="nav-link {{ menuactive(['inventory.new_supplier'])}}">
+                    <a href="{{ route('suppliers.create')}}" class="nav-link {{ menuactive(['suppliers.create'])}}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>
                         Add New Supplier
@@ -365,27 +365,27 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('inventory.list_supplier')}}" class="nav-link {{ menuactive(['inventory.list_supplier'])}}">
+                    <a href="{{ route('suppliers.index')}}" class="nav-link {{ menuactive(['suppliers.index'])}}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>
-                        Supplier List 
+                        Supplier List
                       </p>
                     </a>
                   </li>
                 </ul>
               </li>
 
-              <li class="nav-item {{ childmenuactive(['inventory.new_business_partner','inventory.list_business_partner'])}} {{ rootmenuactive(['inventory.new_business_partner','inventory.list_business_partner'])}}">
+              <li class="nav-item {{ childmenuactive(['businessPartners.create','businessPartners.index'])}} {{ rootmenuactive(['businessPartners.create','businessPartners.index'])}}">
                 <a href="" class="nav-link">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Others Partners
-                    
+
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview {{ childmenushow(['inventory.new_business_partner','inventory.list_business_partner'])}}">
+                <ul class="nav nav-treeview {{ childmenushow(['businessPartners.create','businessPartners.index'])}}">
                   <li class="nav-item">
-                    <a href="{{ route('inventory.new_business_partner')}}" class="nav-link {{ menuactive(['inventory.new_business_partner'])}}">
+                    <a href="{{ route('businessPartners.create')}}" class="nav-link {{ menuactive(['businessPartners.create'])}}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>
                         Add Business Partner
@@ -393,26 +393,26 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('inventory.list_business_partner')}}" class="nav-link {{ menuactive(['inventory.list_business_partner'])}}">
+                    <a href="{{ route('businessPartners.index')}}" class="nav-link {{ menuactive(['businessPartners.index'])}}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>
-                        Business Partner List 
+                        Business Partner List
                       </p>
                     </a>
                   </li>
                 </ul>
               </li>
 
-              <li class="nav-item {{ childmenuactive(['inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}} {{ rootmenuactive(['inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}}">
+              <li class="nav-item {{ childmenuactive(['showrooms.create','showrooms.index'])}} {{ rootmenuactive(['showrooms.create','showrooms.index'])}}">
                 <a href="" class="nav-link">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Showroom/Warehouse
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview {{ childmenushow(['inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}}">
+                <ul class="nav nav-treeview {{ childmenushow(['showrooms.create','showrooms.index'])}}">
                   <li class="nav-item">
-                    <a href="{{ route('inventory.new_warehouse_showroom')}}" class="nav-link {{ menuactive(['inventory.new_warehouse_showroom'])}}">
+                    <a href="{{ route('showrooms.create')}}" class="nav-link {{ menuactive(['showrooms.create'])}}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>
                         Add Showroom/Warehouse
@@ -420,7 +420,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('inventory.list_warehouse_showroom')}}" class="nav-link {{ menuactive(['inventory.list_warehouse_showroom'])}}">
+                    <a href="{{ route('showrooms.index')}}" class="nav-link {{ menuactive(['showrooms.index'])}}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>
                         Showroom/Warehouse List
@@ -432,8 +432,8 @@
 
             </ul>
           </li>
-          <li class="nav-item {{ rootmenuactive(['inventory.list_spare_parts','inventory.new_spare_parts'])}}">
-            <a href="#" class="nav-link {{ menuactive(['inventory.list_spare_parts','inventory.new_spare_parts'])}}">
+          <li class="nav-item {{ rootmenuactive(['spareparts.index','spareparts.create'])}}">
+            <a href="#" class="nav-link {{ menuactive(['spareparts.index','spareparts.create'])}}">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>
                 Spare Parts/Service
@@ -442,13 +442,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('inventory.new_spare_parts')}}" class="nav-link {{ menuactive(['inventory.new_spare_parts'])}}">
+                <a href="{{ route('spareparts.create')}}" class="nav-link {{ menuactive(['spareparts.create'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>New Parts/Service</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.list_spare_parts')}}" class="nav-link {{ menuactive(['inventory.list_spare_parts'])}}">
+                <a href="{{ route('spareparts.index')}}" class="nav-link {{ menuactive(['spareparts.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Parts/Service List</p>
                 </a>
