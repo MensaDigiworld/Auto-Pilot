@@ -9,14 +9,28 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Inventory;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Inventory\BankController;
+use App\Http\Controllers\Inventory\BodyTypeController;
 use App\Http\Controllers\Inventory\BusinessPartnerController;
 use App\Http\Controllers\Inventory\CostTypeController;
+use App\Http\Controllers\Inventory\DisplacementEngineController;
+use App\Http\Controllers\Inventory\DriveSystemController;
 use App\Http\Controllers\Inventory\ExteriorColorController;
+use App\Http\Controllers\Inventory\FuelTypeController;
+use App\Http\Controllers\Inventory\GearController;
 use App\Http\Controllers\Inventory\InteriorColorController;
+use App\Http\Controllers\Inventory\LoadingCapacityController;
+use App\Http\Controllers\Inventory\PackageTrimVariantController;
+use App\Http\Controllers\Inventory\ProductController;
+use App\Http\Controllers\Inventory\SeatingCapacityController;
 use App\Http\Controllers\Inventory\ShowroomController;
 use App\Http\Controllers\Inventory\SparePartController;
 use App\Http\Controllers\Inventory\SupplierController;
+use App\Http\Controllers\Inventory\TransmissionController;
+use App\Http\Controllers\Inventory\VehicleChassisCodeController;
+use App\Http\Controllers\Inventory\VehicleDoorController;
 use App\Http\Controllers\Inventory\VehicleSetupController;
+use App\Http\Controllers\Inventory\WheelController;
+use App\Models\DriveSystem;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,27 +167,51 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'Inventory'], function () {
     Route::get('/Vehicle-Model', [VehicleSetupController::class, 'model_index'])->name('inventory.add_vehicle_model');
     Route::post('/Vehicle-Model-Save', [VehicleSetupController::class, 'model_save'])->name('inventory.model_save');
     Route::get('/Vehicle-Model-edit/{id}', [VehicleSetupController::class, 'model_edit'])->name('inventory.model_edit');
+    Route::post('/Vehicle-Model-update', [VehicleSetupController::class, 'model_update'])->name('inventory.model_update');
     Route::get('/Vehicle-Model-delete/{id}', [VehicleSetupController::class, 'model_delete'])->name('inventory.model_delete');
 
-    Route::get('/Body Type/ Type', [Inventory::class, 'add_vehicle_bodytype'])->name('inventory.add_vehicle_bodytype');
+    // Body Type
+    Route::resource('bodyTypes', BodyTypeController::class);
+    // Route::get('/Body_Type/Type', [Inventory::class, 'add_vehicle_bodytype'])->name('inventory.add_vehicle_bodytype');
 
-    Route::get('/Vehicle-Chassis-code', [Inventory::class, 'add_vehicle_chassis_code'])->name('inventory.add_vehicle_chassis_code');
+    // Vehicle Chassis Code
+    Route::resource('vehicleChassisCodes', VehicleChassisCodeController::class);
+    // Route::get('/Vehicle-Chassis-code', [Inventory::class, 'add_vehicle_chassis_code'])->name('inventory.add_vehicle_chassis_code');
 
-    Route::get('/Vehicle-Package-Trim', [Inventory::class, 'add_vehicle_package'])->name('inventory.add_vehicle_package');
+    // Vehicle Package Trim
 
-    Route::get('/Vehicle-Fuel-Type', [Inventory::class, 'add_vehicle_fuel'])->name('inventory.add_vehicle_fuel');
+    Route::resource('packageTrimVariants', PackageTrimVariantController::class);
+    // Route::get('/Vehicle-Package-Trim', [Inventory::class, 'add_vehicle_package'])->name('inventory.add_vehicle_package');
 
-    Route::get('/Vehicle-Door', [Inventory::class, 'add_vehicle_door'])->name('inventory.add_vehicle_door');
+    // Fuel Type
+    Route::resource('fuelTypes', FuelTypeController::class);
+    // Route::get('/Vehicle-Fuel-Type', [Inventory::class, 'add_vehicle_fuel'])->name('inventory.add_vehicle_fuel');
 
-    Route::get('/Vehicle-Transmission', [Inventory::class, 'add_vehicle_transmission'])->name('inventory.add_vehicle_transmission');
+    // Vehicle  Door
+    Route::resource('vehicleDoors', VehicleDoorController::class);
+    // Route::get('/Vehicle-Door', [Inventory::class, 'add_vehicle_door'])->name('inventory.add_vehicle_door');
 
+    // Transmission
+    Route::resource('transmissions', TransmissionController::class);
+    // Route::get('/Vehicle-Transmission', [Inventory::class, 'add_vehicle_transmission'])->name('inventory.add_vehicle_transmission');
+
+    // Gears
+    Route::resource('gears', GearController::class);
     Route::get('/Vehicle-Gears', [Inventory::class, 'add_vehicle_gear'])->name('inventory.add_vehicle_gear');
 
-    Route::get('/Drive-System', [Inventory::class, 'add_vehicle_drive_system'])->name('inventory.add_vehicle_drive_system');
+    // Drive Systems
+    Route::resource('driveSystems', DriveSystemController::class);
+    // Route::get('/Drive-System', [Inventory::class, 'add_vehicle_drive_system'])->name('inventory.add_vehicle_drive_system');
 
-    Route::get('/Loading-Capacity', [Inventory::class, 'add_vehicle_loading_capacity'])->name('inventory.add_vehicle_loading_capacity');
 
-    Route::get('/Wheels', [Inventory::class, 'add_vehicle_wheel'])->name('inventory.add_vehicle_wheel');
+    // loading Capacity
+
+    Route::resource('loadingCapacities', LoadingCapacityController::class);
+    // Route::get('/Loading-Capacity', [Inventory::class, 'add_vehicle_loading_capacity'])->name('inventory.add_vehicle_loading_capacity');
+
+    // Wheels
+    Route::resource('wheels', WheelController::class);
+    // Route::get('/Wheels', [Inventory::class, 'add_vehicle_wheel'])->name('inventory.add_vehicle_wheel');
 
     Route::post('/exteriorcolor/update', [ExteriorColorController::class, 'exteriorcolorUpdate'])->name('exteriorcolor.update');
     Route::resource('exteriorclors', ExteriorColorController::class);
@@ -183,19 +221,40 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'Inventory'], function () {
 
     // Route::get('/Exterior-Color', [Inventory::class, 'add_vehicle_color_exterior'])->name('inventory.add_vehicle_color_exterior');
 
-    Route::get('/Engine-CC', [Inventory::class, 'add_vehicle_engine_cc'])->name('inventory.add_vehicle_engine_cc');
+    // Displacement / Endgine CC
+    Route::resource('displacementEngines', DisplacementEngineController::class);
+    // Route::get('/Engine-CC', [Inventory::class, 'add_vehicle_engine_cc'])->name('inventory.add_vehicle_engine_cc');
 
+    // Seating Capacity
+    Route::resource('seatingCapacities', SeatingCapacityController::class);
     Route::get('/Seating-capacity', [Inventory::class, 'add_vehicle_seating_capacity'])->name('inventory.add_vehicle_seating_capacity');
+
+
+    // Ajax Data Fetch
+
+    Route::get('/get-man-data/{id}', [ProductController::class, 'manufacturer'])->name('get.data.man');
+    Route::get('/get-model-data/{id}', [ProductController::class, 'model'])->name('get.data.model');
+    Route::get('/get-chasis-data/{id}', [ProductController::class, 'chasis'])->name('get.data.chasis');
+    Route::get('/get-engine-data/{id}', [ProductController::class, 'engine'])->name('get.data.engine');
+    Route::get('/get-seat-data/{id}', [ProductController::class, 'seatingCap'])->name('get.data.seat');
+    Route::get('/get-trans-data/{id}', [ProductController::class, 'transmission'])->name('get.data.trans');
+    Route::get('/get-drive-data/{id}', [ProductController::class, 'driveSystem'])->name('get.data.drive');
 
     // Add vehicle  product
 
-    Route::get('/Add-Passenger-Vehicle', [Inventory::class, 'add_vehicle_passenger'])->name('inventory.add_vehicle_passenger');
+
+
+    Route::resource('products', ProductController::class);
+
+    Route::get('/Add-Passenger-Vehicle', [ProductController::class, 'index'])->name('inventory.add_vehicle_passenger');
 
     Route::get('/Add-Commercial-Vehicle', [Inventory::class, 'add_vehicle_commercial'])->name('inventory.add_vehicle_commercial');
 
     Route::get('/Add-Bike', [Inventory::class, 'add_vehicle_bike'])->name('inventory.add_vehicle_bike');
 
     Route::get('/Vehicle-List', [Inventory::class, 'list_vehicle'])->name('inventory.list_vehicle');
+
+
 
     Route::get('/cost-type-add', [CostTypeController::class, 'create'])->name('inventory.cost_type_add');
     Route::get('/cost-type-edit/{costType}', [CostTypeController::class, 'edit'])->name('inventory.cost_type_edit');

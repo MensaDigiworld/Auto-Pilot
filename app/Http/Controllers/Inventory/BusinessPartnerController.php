@@ -44,7 +44,7 @@ class BusinessPartnerController extends Controller
     {
         $data = BusinessPartner::create($request->all());
 
-        return redirect()->route('businessPartners.index');
+        return redirect()->route('businessPartners.index')->with('success', 'Data has been Added successfully');
     }
 
     /**
@@ -79,7 +79,7 @@ class BusinessPartnerController extends Controller
     public function update(UpdateBusinessPartnerRequest $request, BusinessPartner $businessPartner)
     {
         $businessPartner->update($request->all());
-        return redirect()->route('businessPartners.index');
+        return redirect()->route('businessPartners.index')->with('success', 'Data has been Update successfully');
     }
 
     /**
@@ -91,7 +91,7 @@ class BusinessPartnerController extends Controller
     public function destroy(BusinessPartner $businessPartner)
     {
         $businessPartner->delete();
-        return back();
+        return back()->with('success', 'Data has been Deleted successfully');
     }
 
     public function searchType(Request $request)

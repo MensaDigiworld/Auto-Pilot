@@ -100,7 +100,8 @@
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-success">Save</button>
-                  <button type="submit" class="btn btn-default float-right">Cancel</button>
+                  <a href="{{ route('inventory.add_vehicle_model') }}" class="btn btn-default float-right">Cancel</a>
+                  
                 </div>
                 <!-- /.card-footer -->
               </form>
@@ -155,11 +156,12 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-md m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
+                  {{ $models->links() }}
                 </ul>
               </div>
             </div>

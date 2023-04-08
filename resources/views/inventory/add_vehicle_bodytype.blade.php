@@ -34,14 +34,19 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
+              <form role="form" id="userFrom" method="POST"
+              action="{{ isset($bodyType) ? route('bodyTypes.update',$bodyType->id) : route('bodyTypes.store') }}"
+              enctype="multipart/form-data" class="form-horizontal">
+              @csrf
+              @if (isset($bodyType))
+              @method('PUT')
+              @endif
                 <div class="card-body">
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Body Type/Vehicle Type Name<span class="text-danger fw-600">*</span></label>
-                      <input type="text" class="form-control  form-control-sm" id="inputEmail3" value="{{ old('name')}}" name="name" placeholder="Type">
+                      <input type="text" class="form-control  form-control-sm" id="inputEmail3" value="{{ $bodyType->type_name ?? ''}}" name="type_name" placeholder="Type">
                       </div>
                     </div>
 
@@ -50,11 +55,13 @@
                       <div class="form-group">
                         <label for="inputEmail3" class="col-form-label">Category <span class="text-danger fw-600">*</span></label>
                     
-                      <select class="form-control select2" name="supplier">
+                      <select class="form-control select2" name="category_id">
                         <option >Select vehicle Category</option>
-                        <option >Passenger</option>
-                        <option >Commercial</option>
-                        <option >Bike</option>              
+                        @foreach ($categories as $item)
+                            
+                      
+                        <option value="{{ $item->id }}"  @if(isset($bodyType))($item->id == $bodyType->category_id) selected @endif>{{ $item->name }}</option>
+                        @endforeach       
                       </select>
                     </div>
                   </div>
@@ -65,7 +72,7 @@
                     
                       <div class="input-group">
                         <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="image">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                         </div>
                         <div class="input-group-append">
@@ -77,9 +84,15 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-success">Save</button>
-                  <button type="submit" class="btn btn-default float-right">Cancel</button>
-                </div>
+                  <button type="submit" class="btn btn-success">
+                    @isset($bodyType)
+                    Update
+                      @else
+                    Save
+                    @endisset
+                    </button>
+                    <a href="{{ route('bodyTypes.index') }}"  class="btn btn-default float-right">Cancel</a> 
+         </div>
                 <!-- /.card-footer -->
               </form>
             </div>
@@ -106,26 +119,41 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($bodytypes as $item)
+                        
+                
                     <tr>
-                      <td>1</td>
-                      <td>Tyota</td>
-                      <td>Passenger</td>
-                      <td></td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-                      
+                      <td>{{ $loop->index +1 }}</td>
+                      <td>{{ $item->type_name }}</td>
+                      <td>{{ $item->category->name }}</td>
+                      <td><div class="widget-user-image">
+                        <img src="{{ asset('public/cover_image') }}/{{ $item->image }}" class="img-circle img-thumbnail"  style="height:60px; width:60px;"/>
+                      </div></td>
+    		<td class="text-center"><a href="{{ route('bodyTypes.edit',$item->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
+                        <form action="{{ route('bodyTypes.destroy',$item->id) }}"
+                          method="POST" style="display: inline;">
+                          @csrf()
+                          @method('DELETE')
+                          <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
+                              <i class="fas fa-trash-alt"></i>
+                             
+                          </button>
+                      </form>
+                 </td>   
                     </tr>       
+                    @endforeach      
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-md m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
+                    {{ $bodytypes->links() }}
                 </ul>
               </div>
             </div>

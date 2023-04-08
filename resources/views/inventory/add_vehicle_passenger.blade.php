@@ -40,131 +40,143 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
-                      <label for="inputEmail3" class="col-form-label text-lg">Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto, 
-                        2WD, 5 Seater,Hybrid)
+                      <label for="inputEmail3" class="col-form-label text-lg">
+                      <span><p id="mannamep"></p></span> - <span><p id="modelnamep"></p>- <p id="chassiscodep"></p> <p id="engineccp"></p>
+                    <p id="seatp"></p> <p id="transp"></p>
+                    <p id="drivep"></p>
+                    </span>
+
                         </label>
+                        <input type="hidden" id="manname" name="manname">
                       </div>
                     </div>
 
                     <div class="col-sm-12 col-lg-4 col-md-4">
                       <div class="form-group">
                         <label for="inputEmail3" class="col-form-label">Manufacturer <span class="text-danger fw-600">*</span></label>
-                    
-                      <select class="form-control select2" name="supplier">
+
+                      <select class="form-control select2" name="manufacture_id" onchange="getDataMan(this.value)">
                         <option >Select vehicle Manufacturer</option>
-                        <option >Passenger</option>
-                        <option >Commercial</option>
-                        <option >Bike</option>              
+                        @foreach ($manufacturers as $manufacture)
+
+
+                        <option value="{{ $manufacture->id }}">{{ $manufacture->name }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Body Type/Type <span class="text-danger fw-600">*</span></label>
-                    
-                      <select class="form-control select2" name="supplier">
+
+                      <select class="form-control select2" name="body_type_id" onchange="getDataBType(this.value)">
                         <option >Select Body Type/Type</option>
-                        <option >Japan</option>
-                        <option >China</option>
-                        <option >USA</option>              
+                        @foreach ($bodytypes as $body)
+
+
+                        <option value="{{ $body->id }}">{{ $body->type_name }}</option>
+
+                        @endforeach
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Transmission <span class="text-danger fw-600">*</span></label>
-                    
-                      <select class="form-control select2" name="supplier">
+
+                      <select class="form-control select2" name="transmission_id" onchange="getDataTrans(this.value)">
                         <option >Select Transmission </option>
-                        <option >Japan</option>
-                        <option >China</option>
-                        <option >USA</option>              
+                        @foreach ($transmissions as $tran)
+                        <option value="{{ $tran->id }}" >{{ $tran->transmission }}</option>
+                        @endforeach
+
+
                       </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Model <span class="text-danger fw-600">*</span></label>
-                  
-                    <select class="form-control select2" name="supplier">
+
+                    <select class="form-control select2" name="model_id" onchange="getDataModel(this.value)">
                       <option >Select vehicle Model</option>
-                      <option >Passenger</option>
-                      <option >Commercial</option>
-                      <option >Bike</option>              
+                      @foreach ($models as $model)
+                      <option value="{{ $model->id }}" >{{ $model->name }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
                 <div class="col-sm-12 col-lg-4 col-md-4">
                   <div class="form-group">
                   <label for="inputEmail3" class="col-form-label">Fuel Type <span class="text-danger fw-600">*</span></label>
-                  
-                    <select class="form-control select2" name="supplier">
+
+                    <select class="form-control select2" name="fuel_type_id" >
                       <option >Select Fuel Type</option>
-                      <option >Japan</option>
-                      <option >China</option>
-                      <option >USA</option>              
+                      @foreach ($fueltypes as $ftype)
+                      <option value="{{ $ftype->id }}" >{{ $ftype->fuel_type }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
                 <div class="col-sm-12 col-lg-4 col-md-4">
                   <div class="form-group">
                   <label for="inputEmail3" class="col-form-label">Drive system/Drive Train <span class="text-danger fw-600">*</span></label>
-                  
-                    <select class="form-control select2" name="supplier">
+
+                    <select class="form-control select2" name="drive_system_id" onchange="getDataDrivesystem(this.value)">
                       <option >Select Drive system/Drive Train</option>
-                      <option >Japan</option>
-                      <option >China</option>
-                      <option >USA</option>              
+                      @foreach ($drivesystems as $drive)
+                      <option value="{{ $drive->id }}" >{{ $drive->drive_system }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
                 <div class="col-sm-12 col-lg-4 col-md-4">
                   <div class="form-group">
                   <label for="inputEmail3" class="col-form-label">Chassis Code </label>
-                  
-                    <select class="form-control select2" name="supplier">
+
+                    <select class="form-control select2" name="chassis_id" onchange="getDataChasis(this.value)">
                       <option >Select Chassis Code</option>
-                      <option >Japan</option>
-                      <option >China</option>
-                      <option >USA</option>              
+                      @foreach ($chassises as $chasis)
+                      <option value="{{ $chasis->id }}" >{{ $chasis->chassis_code }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
                     <div class="col-sm-12 col-lg-4 col-md-4">
                       <div class="form-group">
                         <label for="inputEmail3" class="col-form-label">Engine CC <span class="text-danger fw-600">*</span></label>
-                    
-                      <select class="form-control select2" name="supplier">
+
+                      <select class="form-control select2" name="enginecc_id" onchange="getDataEngineCC(this.value)">
                         <option >Select Engine CC</option>
-                        <option >Passenger</option>
-                        <option >Commercial</option>
-                        <option >Bike</option>              
+                        @foreach ($enginecc as $engine)
+                        <option value="{{ $engine->id }}" >{{ $engine->enginecc }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
-                                    
+
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Number of doors</label>
-                    
-                      <select class="form-control select2" name="supplier">
+
+                      <select class="form-control select2" name="door_id">
                         <option >Select Number of doors </option>
-                        <option >Japan</option>
-                        <option >China</option>
-                        <option >USA</option>              
+                        @foreach ($doors as $door)
+                        <option value="{{ $door->id }}" >{{ $door->vehicle_door_no }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
-                  
+
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Seating Capacity </label>
-                    
-                      <select class="form-control select2" name="supplier">
+
+                      <select class="form-control select2" name="seating_capacity_id" onchange="getDataSeat(this.value)">
                         <option >Select Seating Capacity</option>
-                        <option >1</option>
-                        <option >2</option>
-                        <option >3</option>              
+                        @foreach ($seaters as $seat)
+                        <option value="{{ $seat->id }}" >{{ $seat->seating_capacity }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
@@ -192,39 +204,39 @@
                 <div class="row">
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
-                      
-                    
+
+
                         <select class="form-control select2" name="month">
                           <option selected>Select vehicle Manufacture</option>
                           <option>Returned</option>
-                        </select> 
+                        </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
-                      
-                    
+
+
                         <select class="form-control select2" name="month">
                           <option selected>Select vehicle Model</option>
                           <option>Returned</option>
-                        </select> 
+                        </select>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
-                      
-                    
+
+
                         <select class="form-control select2" name="month">
                           <option selected>Select Chassis code</option>
                           <option>Returned</option>
-                        </select> 
+                        </select>
                     </div>
                   </div>
-                
-           
+
+
                     <div class="col-sm-12 col-lg-3 col-md-3">
                       <div class="form-group">
-                        
+
                         <div class="input-group input-group-sm">
                         <input type="search" class="form-control form-control-sm" placeholder="" value="">
                         <div class="input-group-append">
@@ -236,7 +248,7 @@
                         </div>
                   </div>
 
-        
+
 
                 </div>
               </div>
@@ -256,15 +268,15 @@
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td>Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto, 
+                      <td>Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto,
                         2WD, 5 Seater,Hybrid)</td>
                       <td>Hybrid</td>
                       <td>Sedan</td>
                       <td>China</td>
                       <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
                           <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-                      
-                    </tr>       
+
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -280,12 +292,122 @@
               </div>
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
-        
+
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
 @endsection
+
+
+@push('js')
+<script>
+function getDataMan(id) {
+  if (id !== '') {
+    $.ajax({
+      url: '{{ route("get.data.man", ":id") }}'.replace(':id', id),
+      type: 'GET',
+      success: function(data) {
+        // update the page with the retrieved data
+        console.log(data.name);
+        $('#manname').val(data.name);
+        $('#mannamep').text(data.name);
+      }
+    });
+  }
+}
+function getDataModel(id) {
+  if (id !== '') {
+    $.ajax({
+      url: '{{ route("get.data.model", ":id") }}'.replace(':id', id),
+      type: 'GET',
+      success: function(data) {
+        // update the page with the retrieved data
+        console.log(data.name);
+        $('#modelname').val(data.name);
+        $('#modelnamep').text(data.name);
+      }
+    });
+  }
+}
+function getDataChasis(id) {
+  if (id !== '') {
+    $.ajax({
+      url: '{{ route("get.data.chasis", ":id") }}'.replace(':id', id),
+      type: 'GET',
+      success: function(data) {
+        // update the page with the retrieved data
+        console.log(data.name);
+        $('#modelname').val(data.chassis_code);
+        $('#chassiscodep').text(data.chassis_code);
+      }
+    });
+  }
+}
+function getDataEngineCC(id) {
+
+  if (id !== '') {
+    $.ajax({
+      url: '{{ route("get.data.engine", ":id") }}'.replace(':id', id),
+      type: 'GET',
+      success: function(data) {
+        // update the page with the retrieved data
+        console.log(data.name);
+        $('#enginecc').val(data.enginecc);
+        $('#engineccp').text(data.enginecc);
+      }
+    });
+  }
+}
+
+function getDataSeat(id) {
+
+  if (id !== '') {
+    $.ajax({
+      url: '{{ route("get.data.seat", ":id") }}'.replace(':id', id),
+      type: 'GET',
+      success: function(data) {
+        // update the page with the retrieved data
+        console.log(data.name);
+        $('#seati').val(data.seating_capacity);
+        $('#seatp').text(data.seating_capacity);
+      }
+    });
+  }
+}
+function getDataTrans(id) {
+
+  if (id !== '') {
+    $.ajax({
+      url: '{{ route("get.data.trans", ":id") }}'.replace(':id', id),
+      type: 'GET',
+      success: function(data) {
+        // update the page with the retrieved data
+        console.log(data.name);
+        $('#transi').val(data.transmission);
+        $('#transp').text(data.transmission);
+      }
+    });
+  }
+}
+function getDataDrivesystem(id) {
+
+  if (id !== '') {
+    $.ajax({
+      url: '{{ route("get.data.drive", ":id") }}'.replace(':id', id),
+      type: 'GET',
+      success: function(data) {
+        // update the page with the retrieved data
+
+        $('#drivei').val(data.drive_system);
+        $('#drivep').text(data.drive_system);
+      }
+    });
+  }
+}
+</script>
+
+@endpush

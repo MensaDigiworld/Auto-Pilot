@@ -34,14 +34,20 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
+              <form role="form" id="userFrom" method="POST"
+              action="{{ isset($vehicleChassisCode) ? route('vehicleChassisCodes.update',$vehicleChassisCode->id) : route('vehicleChassisCodes.store') }}"
+              enctype="multipart/form-data" class="form-horizontal">
+              @csrf
+              @if (isset($vehicleChassisCode))
+              @method('PUT')
+              @endif
+
                 <div class="card-body">
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Vehicle Chassis Code<span class="text-danger fw-600">*</span></label>
-                      <input type="text" class="form-control  form-control-sm" id="inputEmail3" value="{{ old('name')}}" name="name" placeholder="Type">
+                      <input type="text" class="form-control  form-control-sm" id="inputEmail3" value="{{ $vehicleChassisCode->chassis_code ?? ''}}" name="chassis_code" placeholder="Type">
                       </div>
                     </div>
 
@@ -50,11 +56,13 @@
                       <div class="form-group">
                         <label for="inputEmail3" class="col-form-label">Category <span class="text-danger fw-600">*</span></label>
                     
-                      <select class="form-control select2" name="supplier">
+                      <select class="form-control select2" name="category_id">
                         <option >Select vehicle Category</option>
-                        <option >Passenger</option>
-                        <option >Commercial</option>
-                        <option >Bike</option>              
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @isset($vehicleChassisCode)@if($category->id == $vehicleChassisCode->category_id) selected @endif @endisset >{{ $category->name }}</option>
+                        @endforeach
+                        
+                                    
                       </select>
                     </div>
                   </div>
@@ -63,9 +71,15 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-success">Save</button>
-                  <button type="submit" class="btn btn-default float-right">Cancel</button>
-                </div>
+                  <button type="submit" class="btn btn-success">
+                    @isset($vehicleChassisCode)
+                    Update
+                      @else
+                    Save
+                    @endisset
+                    </button>
+                    <a href="{{ route('vehicleChassisCodes.index') }}"  class="btn btn-default float-right">Cancel</a> 
+         </div>
                 <!-- /.card-footer -->
               </form>
             </div>
@@ -90,25 +104,39 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Tyota</td>
-                      <td>Passenger</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-                      
-                    </tr>       
+                   
+   @foreach ($codes as $item)
+                        
+                
+   <tr>
+     <td>{{ $loop->index +1 }}</td>
+     <td>{{ $item->chassis_code }}</td>
+     <td>{{ $item->category->name }}</td>
+<td class="text-center"><a href="{{ route('vehicleChassisCodes.edit',$item->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
+       <form action="{{ route('vehicleChassisCodes.destroy',$item->id) }}"
+         method="POST" style="display: inline;">
+         @csrf()
+         @method('DELETE')
+         <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
+             <i class="fas fa-trash-alt"></i>
+            
+         </button>
+     </form>
+</td>   
+   </tr>       
+   @endforeach       
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-md m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
+                  {{ $codes->links() }}
                 </ul>
               </div>
             </div>

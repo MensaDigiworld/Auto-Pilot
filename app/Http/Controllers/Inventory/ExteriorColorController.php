@@ -39,7 +39,7 @@ class ExteriorColorController extends Controller
     public function store(StoreExteriorcolorRequest $request)
     {
         $data = Exteriorcolor::create($request->all());
-        return back();
+        return back()->with('success', 'Data has been Added successfully');
     }
 
     /**
@@ -86,7 +86,7 @@ class ExteriorColorController extends Controller
     {
         $data = Exteriorcolor::findorfail($id);
         $data->delete();
-        return back();
+        return back()->with('success', 'Data has been Deleted successfully');
     }
 
 
@@ -94,6 +94,6 @@ class ExteriorColorController extends Controller
     {
         $data = Exteriorcolor::findorfail($request->color_id);
         $data->update($request->all());
-        return back();
+        return back()->with('success', 'Data has been Updated successfully');
     }
 }

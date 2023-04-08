@@ -37,6 +37,7 @@
               <!-- form start -->
               <form action="{{ route('inventory.mnaufacture_update') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                 @csrf
+               <input type="hidden" name="id" value="{{ $catid->id }}">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-12">
@@ -53,7 +54,7 @@
                       <select class="form-control select2" name="category_id">
                         <option selected disabled>Select Category</option>
                        @foreach ($vehicle_category as $category)
-                          <option value="{{ $category->id }}">{{ $category->name }}</option>
+                          <option value="{{ $category->id }}" @if($category->id == $catid->category_id) selected @endif>{{ $category->name }}</option>
                         @endforeach            
                       </select>
                       <span class="text-danger text-sm text-bold">@error('category_id') {{ $message }} @enderror</span>  
@@ -65,7 +66,7 @@
                     
                       <select class="form-control select2" name="country_id">
                        @foreach ($country as $countrys)
-                        <option value="{{ $countrys->id }}">{{ $countrys->name }}</option>
+                        <option value="{{ $countrys->id }}"  @if($countrys->id == $catid->country_id) selected @endif>{{ $countrys->name }}</option>
                       @endforeach        
                       </select>
                     </div>

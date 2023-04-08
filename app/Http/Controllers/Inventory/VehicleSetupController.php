@@ -85,23 +85,26 @@ class VehicleSetupController extends Controller
     public function vehicle_category_delete($id){
 
         $vehicle_category=VehicleCategory::find($id);
-        if(VehicleCategory::find($id)->count()>0 && $vehicle_category->image!==NUll){            
+
+        $deletefile =$vehicle_category->image;
+
+        if ($deletefile) {
             $image_path = 'public/cover_image/'.$vehicle_category->image;
-            unlink($image_path);   
-            VehicleCategory::find($id)->delete();           
-            return back()->with('error','Data has been Delete successfully');;
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
         }
-        else{
-            VehicleCategory::find($id)->delete();         
-            return back()->with('error','Data has been Delete successfully');;
-        }
+            $vehicle_category->delete();
+        return back()->with('error','Data has been Delete successfully');;
+  
     }
     //Manufacture
 
 
     public function add_vehicle_manufacture()
     {
-        $mnaufacture=Manufacture::orderBy('id','desc')->paginate(10);
+        $mnaufacture=Manufacture::with('category')->orderBy('id','desc')->paginate(5);
+        
         $vehicle_category=VehicleCategory::where('status',1)->get();
         $country=Countries::get();
         return view('inventory.add_vehicle_manufacture', compact('mnaufacture','vehicle_category','country'));
@@ -195,18 +198,18 @@ class VehicleSetupController extends Controller
 
     public function mnaufacture_delete($id){
         $mnaufacture=Manufacture::find($id);
-        if(Manufacture::find($id)->count()>0 && $mnaufacture->image!==Null){
-            
+
+        $deletefile =$mnaufacture->image;
+
+        if ($deletefile) {
             $image_path = 'public/cover_image/'.$mnaufacture->image;
-            unlink($image_path);      
-             
-            Manufacture::find($id)->delete();            
-            return back()->with('error','Data has been Delete successfully');
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
         }
-        else{
-            Manufacture::find($id)->delete();           
+            $mnaufacture->delete();
             return back()->with('error','Data has been Delete successfully');
-        }
+   
     }
 
     //Model
@@ -259,17 +262,18 @@ class VehicleSetupController extends Controller
     public function model_edit($id){
 
     $catid=VehicleModel::find($id);
-    $model=VehicleModel::orderBy('id','desc')->paginate(10);
-    $mnaufacture=Manufacture::get();
-    $vehicle_category=VehicleCategory::where('status',1)->get();
+    $models=VehicleModel::orderBy('id','desc')->paginate(10);
+    $mnaufactures=Manufacture::get();
+    $vehicle_categories=VehicleCategory::where('status',1)->get();
     $country=Countries::get();
 
-    return view('inventory.edit_vehicle_model', compact('catid','model','country','mnaufacture'));
+    return view('inventory.edit_vehicle_model', compact('catid','models','country','mnaufactures','vehicle_categories'));
 
     }
 
     public function model_update(Request $request){
 
+   
     $request->validate([
         'name' => 'required',
         'manufacture_id' => 'required',
@@ -293,7 +297,7 @@ class VehicleSetupController extends Controller
         $model->name  = $request->name; 
         $model->status= 1;
         $model->save();
-        return redirect()->back()->with('success','Data has been Update successfully');
+        return redirect()->route('inventory.add_vehicle_model')->with('success','Data has been Update successfully');
     }
     else{
         $model=VehicleModel::find($request->id);
@@ -303,7 +307,7 @@ class VehicleSetupController extends Controller
         $model->name  = $request->name; 
         $model->status= 1;
         $model->save();
-        return redirect()->back()->with('success','Data has been Update successfully');
+        return redirect()->route('inventory.add_vehicle_model')->with('success','Data has been Update successfully');
     }
     }
 

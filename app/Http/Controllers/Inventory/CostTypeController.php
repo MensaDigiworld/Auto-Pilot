@@ -42,7 +42,7 @@ class CostTypeController extends Controller
 
         $data = CostType::create($request->all());
 
-        return redirect()->route('inventory.list_of_cost');
+        return redirect()->route('inventory.list_of_cost')->with('success', 'Data has been Added successfully');
     }
 
     /**
@@ -79,7 +79,7 @@ class CostTypeController extends Controller
 
         $costType = CostType::findorfail($request->costType_id);
         $costType->update($request->all());
-        return redirect()->route('inventory.list_of_cost');
+        return redirect()->route('inventory.list_of_cost')->with('success', 'Data has been Updated successfully');
     }
 
     /**
@@ -92,6 +92,6 @@ class CostTypeController extends Controller
     {
         $costType = CostType::findorfail($request->costType_id);
         $costType->delete();
-        return redirect()->route('inventory.list_of_cost');
+        return redirect()->route('inventory.list_of_cost')->with('success', 'Data has been Deleted successfully');
     }
 }

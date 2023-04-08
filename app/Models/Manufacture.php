@@ -11,8 +11,8 @@ class Manufacture extends Model
     protected $table = 'manufacturers';
     protected $fillable = ['name','category_id','country_id','image','status'];
 
-    public function vehicle_category(){
-        return $this->belongsTo(VehicleCategory::class,'category_id');
+    public function category(){
+        return $this->belongsTo(VehicleCategory::class,'category_id','id');
     }
     public function passenger_vehicle(){
         return $this->hasMany(PassengerVehicle::class);

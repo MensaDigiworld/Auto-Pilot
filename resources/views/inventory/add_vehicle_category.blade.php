@@ -63,7 +63,8 @@
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-success">Save</button>
-                  <button type="submit" class="btn btn-default float-right">Cancel</button>
+                <a href="{{ route('inventory.add_vehicle_category') }}" class="btn btn-default float-right">Cancel</a>
+                 
                 </div>
                 <!-- /.card-footer -->
               </form>

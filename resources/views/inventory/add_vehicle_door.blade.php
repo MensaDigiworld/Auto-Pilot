@@ -34,14 +34,19 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
+              <form role="form" id="userFrom" method="POST"
+              action="{{ isset($vehicleDoor) ? route('vehicleDoors.update',$vehicleDoor->id) : route('vehicleDoors.store') }}"
+              enctype="multipart/form-data" class="form-horizontal">
+              @csrf
+              @if (isset($vehicleDoor))
+              @method('PUT')
+              @endif
                 <div class="card-body">
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
                       <label for="inputEmail3" class="col-form-label"> Number of Vehicle Door <span class="text-danger fw-600">*</span></label>
-                      <input type="number" maxlength="2" class="form-control  form-control-sm" id="inputEmail3" value="{{ old('name')}}" name="name" placeholder="Enter Number of Vehicle Door">
+                      <input type="number" maxlength="2" class="form-control  form-control-sm" id="inputEmail3" value="{{ $vehicleDoor->vehicle_door_no ?? ''}}" name="vehicle_door_no" placeholder="Enter Number of Vehicle Door">
                       </div>
                     </div>
 
@@ -49,8 +54,15 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-success">Save</button>
-                  <button type="submit" class="btn btn-default float-right">Cancel</button>
+                  <button type="submit" class="btn btn-success">
+                    @isset($vehicleDoor)
+                    Update
+                      @else
+                    Save
+                    @endisset
+                    </button>
+                    <a href="{{ route('vehicleDoors.index') }}"  class="btn btn-default float-right">Cancel</a>
+                  
                 </div>
                 <!-- /.card-footer -->
               </form>
@@ -75,14 +87,26 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($vehicledoors as $item)
+                        
+                   
                     <tr>
-                      <td>1</td>
-                      <td>Diesel</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
+                      <td>{{ $loop->index +1 }}</td>
+                      <td>{{ $item->vehicle_door_no }}</td>
+                      <td class="text-center"><a href="{{ route('vehicleDoors.edit',$item->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
+                        <form action="{{ route('vehicleDoors.destroy',$item->id) }}"
+                          method="POST" style="display: inline;">
+                          @csrf()
+                          @method('DELETE')
+                          <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
+                              <i class="fas fa-trash-alt"></i>
+                             
+                          </button>
+                      </form>
+                        </td>
                       
                     </tr>       
-                         
+                    @endforeach  
                   </tbody>
                 </table>
               </div>

@@ -220,8 +220,8 @@
             </ul>
           </li>
 
-          <li class="nav-item {{ rootmenuactive(['inventory.add_vehicle_seating_capacity','inventory.add_vehicle_engine_cc','inventory.add_vehicle_color','inventory.add_vehicle_wheel','inventory.add_vehicle_loading_capacity','inventory.add_vehicle_drive_system','inventory.add_vehicle_gear','inventory.add_vehicle_transmission','inventory.add_vehicle_door','inventory.add_vehicle_fuel','inventory.add_vehicle_package','inventory.add_vehicle_category','inventory.add_vehicle_manufacture','inventory.add_vehicle_model','inventory.add_vehicle_bodytype','inventory.add_vehicle_chassis_code'])}}">
-            <a href="#" class="nav-link {{ menuactive(['inventory.add_vehicle_seating_capacity','inventory.add_vehicle_engine_cc','inventory.add_vehicle_color','inventory.add_vehicle_wheel','inventory.add_vehicle_loading_capacity','inventory.add_vehicle_drive_system','inventory.add_vehicle_gear','inventory.add_vehicle_transmission','inventory.add_vehicle_door','inventory.add_vehicle_fuel','inventory.add_vehicle_package','inventory.add_vehicle_category','inventory.add_vehicle_manufacture','inventory.add_vehicle_model','inventory.add_vehicle_bodytype','inventory.add_vehicle_chassis_code'])}}">
+          <li class="nav-item {{ rootmenuactive(['inventory.add_vehicle_seating_capacity','displacementEngines.index','inventory.add_vehicle_color','inventory.add_vehicle_wheel','inventory.add_vehicle_loading_capacity','inventory.add_vehicle_drive_system','inventory.add_vehicle_gear','transmissions.index','vehicleDoors.index','fuelTypes.index','packageTrimVariants.index','inventory.add_vehicle_category','inventory.add_vehicle_manufacture','inventory.add_vehicle_model','bodyTypes.index','vehicleChassisCodes.index'])}}">
+            <a href="#" class="nav-link {{ menuactive(['inventory.add_vehicle_seating_capacity','displacementEngines.index','inventory.add_vehicle_color','inventory.add_vehicle_wheel','inventory.add_vehicle_loading_capacity','inventory.add_vehicle_drive_system','inventory.add_vehicle_gear','transmissions.index','vehicleDoors.index','fuelTypes.index','packageTrimVariants.index','inventory.add_vehicle_category','inventory.add_vehicle_manufacture','inventory.add_vehicle_model','bodyTypes.index','vehicleChassisCodes.index'])}}">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>
                 Vehicle Setup
@@ -248,31 +248,31 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_bodytype')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_bodytype'])}}">
+                <a href="{{ route('bodyTypes.index')}}" class="nav-link {{ menuactive(['bodyTypes.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Body Type/Type</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_chassis_code')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_chassis_code'])}}">
+                <a href="{{ route('vehicleChassisCodes.index')}}" class="nav-link {{ menuactive(['vehicleChassisCodes.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Chassis Code</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_package')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_package'])}}">
+                <a href="{{ route('packageTrimVariants.index')}}" class="nav-link {{ menuactive(['packageTrimVariants.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Package/Trim/Variant</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_fuel')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_fuel'])}}">
+                <a href="{{ route('fuelTypes.index')}}" class="nav-link {{ menuactive(['fuelTypes.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Fuel type</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_engine_cc')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_engine_cc'])}}">
+                <a href="{{ route('displacementEngines.index')}}" class="nav-link {{ menuactive(['displacementEngines.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Displacement/Engine CC</p>
                 </a>
@@ -284,43 +284,43 @@
                 </a>
               </li> --}}
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_door')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_door'])}}">
+                <a href="{{ route('vehicleDoors.index')}}" class="nav-link {{ menuactive(['vehicleDoors.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Number of doors</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_transmission')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_transmission'])}}">
+                <a href="{{ route('transmissions.index')}}" class="nav-link {{ menuactive(['transmissions.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Transmission</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_gear')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_gear'])}}">
+                <a href="{{ route('gears.index')}}" class="nav-link {{ menuactive(['gears.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Gears</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_drive_system')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_drive_system'])}}">
+                <a href="{{ route('driveSystems.index')}}" class="nav-link {{ menuactive(['driveSystems.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Drive system</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_seating_capacity')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_seating_capacity'])}}">
+                <a href="{{ route('seatingCapacities.index')}}" class="nav-link {{ menuactive(['seatingCapacities.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Seating capacity</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_loading_capacity')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_loading_capacity'])}}">
+                <a href="{{ route('loadingCapacities.index')}}" class="nav-link {{ menuactive(['loadingCapacities.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Loading Capacity</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('inventory.add_vehicle_wheel')}}" class="nav-link {{ menuactive(['inventory.add_vehicle_wheel'])}}">
+                <a href="{{ route('wheels.index')}}" class="nav-link {{ menuactive(['wheels.index'])}}">
                   <i class="nav-icon far fa-circle text-success"></i>
                   <p>Number of Wheels</p>
                 </a>

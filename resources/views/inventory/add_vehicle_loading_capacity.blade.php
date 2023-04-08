@@ -34,14 +34,20 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
+              <form role="form" id="userFrom" method="POST"
+              action="{{ isset($loadingCapacity) ? route('loadingCapacities.update',$loadingCapacity->id) : route('loadingCapacities.store') }}"
+              enctype="multipart/form-data" class="form-horizontal">
+              @csrf
+              @if (isset($loadingCapacity))
+              @method('PUT')
+              @endif
+
                 <div class="card-body">
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Loading Capacity <span class="text-danger fw-600">*</span></label>
-                      <input type="text" class="form-control form-control-sm" id="inputEmail3" value="{{ old('name')}}" name="name" placeholder="e.g 1500KG">
+                      <input type="text" class="form-control form-control-sm" id="inputEmail3" value="{{$loadingCapacity->loading_capacity ?? '' }}" name="loading_capacity" placeholder="e.g 1500KG">
                       </div>
                     </div>
 
@@ -49,8 +55,17 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-success">Save</button>
-                  <button type="submit" class="btn btn-default float-right">Cancel</button>
+                  <button type="submit" class="btn btn-success">
+                  @isset($loadingCapacity)
+                    Update
+                    @else
+                    Save
+                  @endisset  
+                  
+                  
+                  </button>
+                  <a href="{{ route('loadingCapacities.index') }}" class="btn btn-default float-right">Cancel</a>
+                  {{-- <button type="submit" class="btn btn-default float-right">Cancel</button> --}}
                 </div>
                 <!-- /.card-footer -->
               </form>
@@ -75,27 +90,28 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($loadingcapacities as $item)
+                        
+                  
                     <tr>
-                      <td>1</td>
-                      <td>1500 KG</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
+                      <td>{{ $loop->index +1 }}</td>
+                      <td>{{ $item->loading_capacity }}</td>
+                      <td class="text-center"><a href="{{ route('loadingCapacities.edit',$item->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
+                          
+                        
+                          <form action="{{ route('loadingCapacities.destroy',$item->id) }}"
+                            method="POST" style="display: inline;">
+                            @csrf()
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+                                
+                            </button>
+                        </form>
+                        </td>
                       
                     </tr>       
-                    <tr>
-                      <td>2</td>
-                      <td>1 Ton</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-                      
-                    </tr>       
-                    <tr>
-                      <td>3</td>
-                      <td>5 Ton</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-                      
-                    </tr>       
+                    @endforeach   
                   </tbody>
                 </table>
               </div>

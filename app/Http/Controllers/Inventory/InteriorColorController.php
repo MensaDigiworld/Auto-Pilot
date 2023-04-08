@@ -40,7 +40,7 @@ class InteriorColorController extends Controller
     public function store(StoreInteriorcolorRequest $request)
     {
         $sta = Interiorcolor::create($request->all());
-        return back();
+        return back()->with('success', 'Data has been Added successfully');
     }
 
     /**
@@ -74,10 +74,10 @@ class InteriorColorController extends Controller
      */
     public function update(UpdateInteriorcolorRequest $request, Interiorcolor $interiorcolor)
     {
-        return "ok";
+        // return "ok";
 
         $interiorcolor->update($request->all());
-        return back();
+        return back()->with('success', 'Data has been Updated successfully');
     }
 
     /**
@@ -89,7 +89,7 @@ class InteriorColorController extends Controller
     public function destroy(Interiorcolor $interiorcolor)
     {
         $interiorcolor->delete();
-        return back();
+        return back()->with('success', 'Data has been Deleted successfully');
     }
 
     public function interiorEdit($id)
@@ -104,6 +104,6 @@ class InteriorColorController extends Controller
     {
         $data = Interiorcolor::findorfail($request->color_id);
         $data->update($request->all());
-        return back();
+        return back()->with('success', 'Data has been Updated successfully');
     }
 }

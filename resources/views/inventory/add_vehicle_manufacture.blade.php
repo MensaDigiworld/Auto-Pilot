@@ -122,8 +122,8 @@
                     <tr>
                       <td>{{$loop->iteration}}</td>
                       <td>{{$mnaufactur->name}}</td>
-                      <td>{{ optional($mnaufactur->vehicle_category)->name }}</td>
-                      <td>{{ optional($mnaufactur->country)->name }}</td>
+                      <td>{{ $mnaufactur->category_id }}</td>
+                      <td>{{ $mnaufactur->country_id }}</td>
                       <td><div class="widget-user-image">
                         <img src="../public/cover_image/{{ $mnaufactur->image}}" class="img-circle img-thumbnail"  style="height:60px; width:60px;"/>
                       </div></td>
@@ -139,11 +139,12 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-md m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
+                  {{ $mnaufacture->links() }}
                 </ul>
               </div>
             </div>
