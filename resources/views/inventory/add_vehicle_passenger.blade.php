@@ -34,7 +34,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
+              <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                 @csrf
                 <div class="card-body">
                   <div class="row">
@@ -48,6 +48,12 @@
 
                         </label>
                         <input type="hidden" id="manname" name="manname">
+                        <input type="hidden" id="modelname" name="modelname">
+                        <input type="hidden" id="chassiscode" name="chassiscode">
+                        <input type="hidden" id="enginecc" name="enginecc">
+                        <input type="hidden" id="seat" name="seat">
+                        <input type="hidden" id="trans" name="trans">
+                        <input type="hidden" id="category_id" name="category_id">
                       </div>
                     </div>
 
@@ -98,7 +104,7 @@
                     <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Model <span class="text-danger fw-600">*</span></label>
 
-                    <select class="form-control select2" name="model_id" onchange="getDataModel(this.value)">
+                    <select class="form-control select2" name="model_id" id="model_id" onchange="getDataModel(this.value)">
                       <option >Select vehicle Model</option>
                       @foreach ($models as $model)
                       <option value="{{ $model->id }}" >{{ $model->name }}</option>
@@ -197,54 +203,73 @@
 
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-              <form action="" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
+
               <div class="card-header">
                 <h3 class="card-title col-12 py-3">List of Passenger Vehicle</h3>
                 <div class="row">
+
                   <div class="col-sm-12 col-lg-3 col-md-3">
-                    <div class="form-group">
+                    <div class="form-group ">
 
-
-                        <select class="form-control select2" name="month">
+                        <form method="post" action="{{route('product.man.select.search')}}">
+                            @csrf
+                        <select class="form-control select2" name="manufacture" onchange="this.form.submit()">
                           <option selected>Select vehicle Manufacture</option>
-                          <option>Returned</option>
+                          @foreach ($manufacturers as $manufacture)
+
+
+                          <option value="{{ $manufacture->id }}">{{ $manufacture->name }}</option>
+                          @endforeach
                         </select>
+                    </form>
                     </div>
                   </div>
+
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
 
-
-                        <select class="form-control select2" name="month">
+                        <form method="post" action="{{route('product.model.select.search')}}">
+                            @csrf
+                        <select class="form-control select2" name="model" onchange="this.form.submit()">
                           <option selected>Select vehicle Model</option>
-                          <option>Returned</option>
+                          @foreach ($models as $model)
+                      <option value="{{ $model->id }}" >{{ $model->name }}</option>
+                      @endforeach
                         </select>
+                        </form>
                     </div>
                   </div>
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
 
+                        <form method="post" action="{{route('product.chasis.select.search')}}">
+                            @csrf
+                        <select class="form-control select2" name="chasis" onchange="this.form.submit()">
 
-                        <select class="form-control select2" name="month">
                           <option selected>Select Chassis code</option>
-                          <option>Returned</option>
+                          @foreach ($chassises as $chasis)
+                          <option value="{{ $chasis->id }}" >{{ $chasis->chassis_code }}</option>
+                          @endforeach
+
                         </select>
+                        </form>
                     </div>
                   </div>
 
 
                     <div class="col-sm-12 col-lg-3 col-md-3">
                       <div class="form-group">
-
+                        <form action="{{ route('product.search.word') }}" method="POST">
+                            @csrf
                         <div class="input-group input-group-sm">
-                        <input type="search" class="form-control form-control-sm" placeholder="" value="">
+                        <input type="search" class="form-control form-control-sm" placeholder="" name="word">
                         <div class="input-group-append">
                         <button type="submit" class="btn btn-lg btn-info">
                         <i class="fa fa-search"></i> Search
                         </button>
                         </div>
                         </div>
+                    </form>
                         </div>
                   </div>
 
@@ -252,7 +277,7 @@
 
                 </div>
               </div>
-              </form>
+
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered">
                   <thead>
@@ -266,28 +291,43 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto,
-                        2WD, 5 Seater,Hybrid)</td>
-                      <td>Hybrid</td>
-                      <td>Sedan</td>
-                      <td>China</td>
-                      <td class="text-center"><a href="" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
+                    @foreach ($products as $product)
 
+
+                    <tr>
+                      <td>{{ $loop->index +1 }}</td>
+                      {{-- <td>Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto,
+                        2WD, 5 Seater,Hybrid)</td> --}}
+                        <td>{{ $product->name }}</td>
+                      <td>{{ $product->fueltype->fuel_type }}</td>
+                      <td>{{ $product->bodytype->type_name }}</td>
+                      <td>{{ $product->drivesystem->drive_system }}</td>
+                      <td class="text-center"><a href="{{ route('products.edit',$product->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
+
+                        {{-- <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td> --}}
+                        <form action="{{ route('products.destroy',$product->id) }}"
+                            method="POST" style="display: inline;">
+                            @csrf()
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+
+                            </button>
+                        </form>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-md m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
+                  {{$products->links()}}
                 </ul>
               </div>
             </div>
@@ -312,9 +352,12 @@ function getDataMan(id) {
       type: 'GET',
       success: function(data) {
         // update the page with the retrieved data
-        console.log(data.name);
-        $('#manname').val(data.name);
-        $('#mannamep').text(data.name);
+        console.log(data.data.name);
+        $('#manname').val(data.data.name);
+        $('#category_id').val(data.data.category_id);
+        $('#mannamep').text(data.data.name);
+        $('#model_id').html(data.html);
+
       }
     });
   }
@@ -341,7 +384,7 @@ function getDataChasis(id) {
       success: function(data) {
         // update the page with the retrieved data
         console.log(data.name);
-        $('#modelname').val(data.chassis_code);
+        $('#chassiscode').val(data.chassis_code);
         $('#chassiscodep').text(data.chassis_code);
       }
     });
@@ -372,7 +415,7 @@ function getDataSeat(id) {
       success: function(data) {
         // update the page with the retrieved data
         console.log(data.name);
-        $('#seati').val(data.seating_capacity);
+        $('#seat').val(data.seating_capacity);
         $('#seatp').text(data.seating_capacity);
       }
     });
@@ -387,7 +430,7 @@ function getDataTrans(id) {
       success: function(data) {
         // update the page with the retrieved data
         console.log(data.name);
-        $('#transi').val(data.transmission);
+        $('#trans').val(data.transmission);
         $('#transp').text(data.transmission);
       }
     });
@@ -410,4 +453,21 @@ function getDataDrivesystem(id) {
 }
 </script>
 
+{{-- <script type="text/javascript">
+
+
+    $("#manufacture_id").change(function(){
+        $.ajax({
+            url: "{{ route('getvehiclemodel') }}?manufacture_id=" + $(this).val(),
+            method: 'GET',
+            success: function(data) {
+                $('#carmodel').html(data.html);
+            }
+        });
+    });
+
+
+
+
+</script> --}}
 @endpush

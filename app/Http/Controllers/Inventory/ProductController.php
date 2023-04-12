@@ -10,12 +10,15 @@ use App\Models\BodyType;
 use App\Models\DisplacementEngine;
 use App\Models\DriveSystem;
 use App\Models\FuelType;
+use App\Models\Gear;
 use App\Models\Manufacture;
+use App\Models\PackageTrimVariant;
 use App\Models\SeatingCapacity;
 use App\Models\Transmission;
 use App\Models\VehicleChassisCode;
 use App\Models\VehicleDoor;
 use App\Models\VehicleModel;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -26,8 +29,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // return $d = Product::all();
         $data['products'] = Product::orderBy('id', 'DESC')->paginate(10);
-        $data['manufacturers'] = Manufacture::all();
+        $data['manufacturers'] = Manufacture::where('category_id', 7)->get();
         $data['bodytypes'] = BodyType::all();
         $data['transmissions'] = Transmission::all();
         $data['models'] = VehicleModel::all();
@@ -60,7 +64,10 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        Product::create($request->all);
+        $name =  $request->manname . '-' . $request->modelname . '(' . $request->chassiscode . ',' . $request->enginecc . ',' . $request->seat . ',' . $request->trans . ')';
+
+        // return $name; // $request->merge(['name' => $name]);
+        Product::create(['name' => $name] + $request->all());
         return back()->with('success', 'Data has been Added successfully');
     }
 
@@ -83,7 +90,20 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('', compact('product'));
+        $data['product'] = $product;
+        $data['products'] = Product::orderBy('id', 'DESC')->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 7)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+        return view('inventory.edit_vehicle_passenger', $data);
     }
 
     /**
@@ -95,6 +115,10 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        return $request->all();
+        $name =  $request->manname . '-' . $request->modelname . '(' . $request->chassiscode . ',' . $request->enginecc . ',' . $request->seat . ',' . $request->trans . ')';
+
+        $product->update(['name' => $name] + $request->all());
         return redirect()->route('')->with('success', 'Data has been Updated successfully');
     }
 
@@ -106,13 +130,33 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $product->delete();
         return back()->with('success', 'Data has been Deleted successfully');
     }
 
+    // public function manufacturer($id)
+    // {
+    //     $data = Manufacture::where('id', $id)->first();
+    //     return response()->json($data);
+    // }
     public function manufacturer($id)
     {
         $data = Manufacture::where('id', $id)->first();
-        return response()->json($data);
+        // return response()->json($data);
+        if ($id == null) {
+            $html = '<option value="">' . trans('Others') . '</option>';
+        } else {
+            $others = "Select Model";
+            $html = '';
+            $cars = VehicleModel::where('category_id', $data->category_id)->get();
+            $html .= '<option >' . $others . '</option>';
+            foreach ($cars as $car) {
+                $html .= '<option value="' . $car->id . '">' . $car->name . '</option>';
+            }
+        }
+
+        return response()->json(['html' => $html, 'data' => $data]);
+        // return response()->json(['data' => $data]);
     }
     public function model($id)
     {
@@ -143,5 +187,345 @@ class ProductController extends Controller
     {
         $data = DriveSystem::where('id', $id)->first();
         return response()->json($data);
+    }
+
+
+
+    public function productUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'manufacture_id' => 'required',
+            'model_id' => 'required',
+
+        ]);
+        $name =  $request->manname . '-' . $request->modelname . '(' . $request->chassiscode . ',' . $request->enginecc . ',' . $request->seat . ',' . $request->trans . ')';
+        $product = Product::findorfail($request->product_id);
+        $product->update(['name' => $name] + $request->all());
+        return back()->with('success', 'Data has been Updated successfully');
+    }
+
+    public function manSelectSearch(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::where('manufacture_id', $request->manufacture)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 7)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_passenger', $data);
+    }
+    public function modelSelectSearch(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::where('model_id', $request->model)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 7)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_passenger', $data);
+    }
+    public function chasisSelectSearch(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::where('chassis_id', $request->chasis)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 7)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_passenger', $data);
+    }
+    public function searchByWord(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::search($request->word)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 7)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_passenger', $data);
+    }
+
+
+    public function addComercialv()
+    {
+        $data['products'] = Product::where('category_id', 9)->orderBy('id', 'DESC')->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 9)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_commercial', $data);
+    }
+    public function editCommercial(Product $product)
+    {
+        $data['product'] = $product;
+        $data['products'] = Product::where('category_id', 9)->orderBy('id', 'DESC')->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 9)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+        return view('inventory.edit_vehicle_commercial', $data);
+    }
+
+    public function commanSelectSearch(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::where('manufacture_id', $request->manufacture)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 9)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_commercial', $data);
+    }
+    public function commodelSelectSearch(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::where('model_id', $request->model)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 9)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_commercial', $data);
+    }
+    public function comchasisSelectSearch(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::where('chassis_id', $request->chasis)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 9)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_commercial', $data);
+    }
+    public function comsearchByWord(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::search($request->word)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 9)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+
+
+        return view('inventory.add_vehicle_commercial', $data);
+    }
+
+
+    public function addBike()
+    {
+        $data['products'] = Product::where('category_id', 8)->orderBy('id', 'DESC')->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 8)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+        $data['gears'] = Gear::all();
+        $data['packages'] = PackageTrimVariant::all();
+
+        return view('inventory.add_vehicle_bike', $data);
+        // return view('inventory.add_vehicle_commercial', $data);
+    }
+
+    public function storeBike(Request $request)
+    {
+
+        // return $request->all();
+
+        $this->validate($request, [
+            'manufacture_id' => 'required',
+            'model_id' => 'required',
+            'fuel_type_id' => 'required',
+            'enginecc_id' => 'required',
+            'body_type_id' => 'required',
+
+        ]);
+
+        $name =  $request->manname . '-' . $request->modelname . '(' . $request->chassiscode . ',' . $request->enginecc . ',' . $request->trans . ')';
+
+        // return $name; // $request->merge(['name' => $name]);
+        Product::create(['name' => $name] + $request->all());
+        return back()->with('success', 'Data has been Added successfully');
+    }
+
+    public function editBike(Product $product)
+    {
+        $data['product'] = $product;
+        $data['products'] = Product::where('category_id', 8)->orderBy('id', 'DESC')->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 8)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+        $data['gears'] = Gear::all();
+        $data['packages'] = PackageTrimVariant::all();
+
+        return view('inventory.edit_vehicle_bike', $data);
+    }
+
+    public function updateBike(Request $request)
+    {
+        $this->validate($request, [
+            'manufacture_id' => 'required',
+            'model_id' => 'required',
+            'fuel_type_id' => 'required',
+            'enginecc_id' => 'required',
+            'body_type_id' => 'required',
+
+        ]);
+
+        $name =  $request->manname . '-' . $request->modelname . '(' . $request->chassiscode . ',' . $request->enginecc . ',' . $request->trans . ')';
+
+        $product = Product::findorfail($request->product_id);
+        $product->update(['name' => $name] + $request->all());
+        return back()->with('success', 'Data has been Added successfully');
+    }
+
+
+    public function bikesearchByWord(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::search($request->word)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 8)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+        $data['gears'] = Gear::all();
+        $data['packages'] = PackageTrimVariant::all();
+
+
+        return view('inventory.add_vehicle_bike', $data);
+    }
+    public function bikemodelSelectSearch(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::where('model_id', $request->model)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 8)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+        $data['gears'] = Gear::all();
+        $data['packages'] = PackageTrimVariant::all();
+
+
+        return view('inventory.add_vehicle_bike', $data);
+    }
+
+    public function bikemanSelectSearch(Request $request)
+    {
+        // return $request->manufacture;
+        $data['products'] = Product::where('manufacture_id', $request->manufacture)->paginate(10);
+        $data['manufacturers'] = Manufacture::where('category_id', 8)->get();
+        $data['bodytypes'] = BodyType::all();
+        $data['transmissions'] = Transmission::all();
+        $data['models'] = VehicleModel::all();
+        $data['fueltypes'] = FuelType::all();
+        $data['drivesystems'] = DriveSystem::all();
+        $data['chassises'] = VehicleChassisCode::all();
+        $data['enginecc'] = DisplacementEngine::all();
+        $data['doors'] = VehicleDoor::all();
+        $data['seaters'] = SeatingCapacity::all();
+        $data['gears'] = Gear::all();
+        $data['packages'] = PackageTrimVariant::all();
+
+
+        return view('inventory.add_vehicle_bike', $data);
     }
 }

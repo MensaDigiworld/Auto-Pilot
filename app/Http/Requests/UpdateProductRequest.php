@@ -24,7 +24,8 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'nullable',
+            'category_id' => 'nullable',
             'manufacture_id' => 'required',
             'model_id' => 'required',
             'body_type_id' => 'required',

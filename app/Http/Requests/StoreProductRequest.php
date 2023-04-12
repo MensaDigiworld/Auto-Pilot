@@ -24,17 +24,20 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'nullable',
+            'category_id' => 'nullable',
             'manufacture_id' => 'required',
             'model_id' => 'required',
             'body_type_id' => 'required',
             'transmission_id' => 'required',
             'fuel_type_id' => 'required',
-            'drive_system_id' => 'required',
+            'drive_system_id' => 'nullable',
             'chassis_id' => 'required',
             'enginecc_id' => 'required',
-            'door_id' => 'required',
+            'door_id' => 'nullable',
             'seating_capacity_id' => 'required',
+            'gear_id' => 'nullable',
+            'package_id' => 'nullable',
             'company_id' => 'nullable',
             'status' => 'nullable',
         ];

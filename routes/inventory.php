@@ -232,6 +232,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'Inventory'], function () {
 
     // Ajax Data Fetch
 
+    // Route::get('/get-man-data', [ProductController::class, 'manufacturer'])->name('get.data.man');
     Route::get('/get-man-data/{id}', [ProductController::class, 'manufacturer'])->name('get.data.man');
     Route::get('/get-model-data/{id}', [ProductController::class, 'model'])->name('get.data.model');
     Route::get('/get-chasis-data/{id}', [ProductController::class, 'chasis'])->name('get.data.chasis');
@@ -243,14 +244,32 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'Inventory'], function () {
     // Add vehicle  product
 
 
+    Route::post('/product-update', [ProductController::class, 'productUpdate'])->name('product.update');
+    Route::post('/product-manufacture-search', [ProductController::class, 'manSelectSearch'])->name('product.man.select.search');
+    Route::post('/product-model-search', [ProductController::class, 'modelSelectSearch'])->name('product.model.select.search');
+    Route::post('/product-chasis-search', [ProductController::class, 'chasisSelectSearch'])->name('product.chasis.select.search');
+    Route::post('/product-search-word', [ProductController::class, 'searchByWord'])->name('product.search.word');
+
+    Route::get('/product-edit-commercial/{product}', [ProductController::class, 'editCommercial'])->name('product.edit.commercial');
+    Route::post('/product-manufacture-commercial-search', [ProductController::class, 'commanSelectSearch'])->name('product.man.select.csearch');
+    Route::post('/product-model-commercial-search', [ProductController::class, 'commodelSelectSearch'])->name('product.model.select.csearch');
+    Route::post('/product-chasis-commercial-search', [ProductController::class, 'comchasisSelectSearch'])->name('product.chasis.select.csearch');
+    Route::post('/product-search-commercial-word', [ProductController::class, 'comsearchByWord'])->name('product.search.cword');
+
+    Route::get('/product-edit-bike/{product}', [ProductController::class, 'editBike'])->name('product.edit.bike');
+    Route::post('/product-edit-update', [ProductController::class, 'updateBike'])->name('product.updateBike');
+    Route::post('/product-manufacture-bike-search', [ProductController::class, 'bikemanSelectSearch'])->name('product.man.select.bsearch');
+    Route::post('/product-model-bike-search', [ProductController::class, 'bikemodelSelectSearch'])->name('product.model.select.bsearch');
+    Route::post('/product-search-bike-word', [ProductController::class, 'bikesearchByWord'])->name('product.search.bword');
+    Route::post('/Bike-store', [ProductController::class, 'storeBike'])->name('bike.store');
 
     Route::resource('products', ProductController::class);
 
     Route::get('/Add-Passenger-Vehicle', [ProductController::class, 'index'])->name('inventory.add_vehicle_passenger');
 
-    Route::get('/Add-Commercial-Vehicle', [Inventory::class, 'add_vehicle_commercial'])->name('inventory.add_vehicle_commercial');
+    Route::get('/Add-Commercial-Vehicle', [ProductController::class, 'addComercialv'])->name('inventory.add_vehicle_commercial');
 
-    Route::get('/Add-Bike', [Inventory::class, 'add_vehicle_bike'])->name('inventory.add_vehicle_bike');
+    Route::get('/Add-Bike', [ProductController::class, 'addBike'])->name('inventory.add_vehicle_bike');
 
     Route::get('/Vehicle-List', [Inventory::class, 'list_vehicle'])->name('inventory.list_vehicle');
 

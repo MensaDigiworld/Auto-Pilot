@@ -8,12 +8,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Add Bike</h1>
+            <h1 class="m-0">Edit Passenger Vehicle</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Add Bike</li>
+              <li class="breadcrumb-item active">Edit Passenger Vehicle</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,30 +30,32 @@
 
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">Add Bike</h3>
+                <h3 class="card-title">Edit Passenger Vehicle</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{ route('bike.store') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+              <form action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                 @csrf
                 <div class="card-body">
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
                       <label for="inputEmail3" class="col-form-label text-lg">
+                        <p>{{ $product->name }}</p>
                       <span><p id="mannamep"></p></span> - <span><p id="modelnamep"></p>- <p id="chassiscodep"></p> <p id="engineccp"></p>
                     <p id="seatp"></p> <p id="transp"></p>
                     <p id="drivep"></p>
                     </span>
 
                         </label>
-                        <input type="hidden" id="manname" name="manname">
-                        <input type="hidden" id="modelname" name="modelname">
-                        <input type="hidden" id="chassiscode" name="chassiscode">
-                        <input type="hidden" id="enginecc" name="enginecc">
-                        <input type="hidden" id="seat" name="seat">
-                        <input type="hidden" id="trans" name="trans">
-                        <input type="hidden" id="category_id" name="category_id">
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" id="manname" name="manname" value="{{ $product->manufacture->name }}">
+                        <input type="hidden" id="modelname" name="modelname" value="{{ $product->model->name }}">
+                        <input type="hidden" id="chassiscode" name="chassiscode" value="{{ $product->chasis->chassis_code }}">
+                        <input type="hidden" id="enginecc" name="enginecc" value="{{ $product->enginecc->enginecc }}">
+                        <input type="hidden" id="seat" name="seat" value="{{ $product->seat->seating_capacity }}">
+                        <input type="hidden" id="trans" name="trans" value="{{ $product->transmission->transmission }}">
+                        <input type="hidden" id="category_id" name="category_id" value="{{ $product->category_id}}">
                       </div>
                     </div>
 
@@ -66,7 +68,7 @@
                         @foreach ($manufacturers as $manufacture)
 
 
-                        <option value="{{ $manufacture->id }}">{{ $manufacture->name }}</option>
+                        <option value="{{ $manufacture->id }}" @if($product->manufacture_id == $manufacture->id) selected @endif>{{ $manufacture->name }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -80,35 +82,35 @@
                         @foreach ($bodytypes as $body)
 
 
-                        <option value="{{ $body->id }}">{{ $body->type_name }}</option>
+                        <option value="{{ $body->id }}" @if($product->body_type_id == $body->id) selected @endif>{{ $body->type_name }}</option>
 
                         @endforeach
                       </select>
                     </div>
                   </div>
-                  {{-- <div class="col-sm-12 col-lg-4 col-md-4">
+                  <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Transmission <span class="text-danger fw-600">*</span></label>
 
                       <select class="form-control select2" name="transmission_id" onchange="getDataTrans(this.value)">
                         <option >Select Transmission </option>
                         @foreach ($transmissions as $tran)
-                        <option value="{{ $tran->id }}" >{{ $tran->transmission }}</option>
+                        <option value="{{ $tran->id }}" @if($product->transmission_id == $tran->id) selected @endif>{{ $tran->transmission }}</option>
                         @endforeach
 
 
                       </select>
                     </div>
-                  </div> --}}
+                  </div>
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Model <span class="text-danger fw-600">*</span></label>
 
                     <select class="form-control select2" name="model_id" id="model_id" onchange="getDataModel(this.value)">
-                      {{-- <option >Select vehicle Model</option>
+                      <option >Select vehicle Model</option>
                       @foreach ($models as $model)
-                      <option value="{{ $model->id }}" >{{ $model->name }}</option>
-                      @endforeach --}}
+                      <option value="{{ $model->id }}" @if($product->model_id == $model->id) selected @endif>{{ $model->name }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
@@ -119,23 +121,23 @@
                     <select class="form-control select2" name="fuel_type_id" >
                       <option >Select Fuel Type</option>
                       @foreach ($fueltypes as $ftype)
-                      <option value="{{ $ftype->id }}" >{{ $ftype->fuel_type }}</option>
+                      <option value="{{ $ftype->id }}" @if($product->fuel_type_id == $ftype->id) selected @endif>{{ $ftype->fuel_type }}</option>
                       @endforeach
                     </select>
                   </div>
                 </div>
-                {{-- <div class="col-sm-12 col-lg-4 col-md-4">
+                <div class="col-sm-12 col-lg-4 col-md-4">
                   <div class="form-group">
                   <label for="inputEmail3" class="col-form-label">Drive system/Drive Train <span class="text-danger fw-600">*</span></label>
 
                     <select class="form-control select2" name="drive_system_id" onchange="getDataDrivesystem(this.value)">
                       <option >Select Drive system/Drive Train</option>
                       @foreach ($drivesystems as $drive)
-                      <option value="{{ $drive->id }}" >{{ $drive->drive_system }}</option>
+                      <option value="{{ $drive->id }}" @if($product->drive_system_id == $drive->id) selected @endif>{{ $drive->drive_system }}</option>
                       @endforeach
                     </select>
                   </div>
-                </div> --}}
+                </div>
                 <div class="col-sm-12 col-lg-4 col-md-4">
                   <div class="form-group">
                   <label for="inputEmail3" class="col-form-label">Chassis Code </label>
@@ -143,7 +145,7 @@
                     <select class="form-control select2" name="chassis_id" onchange="getDataChasis(this.value)">
                       <option >Select Chassis Code</option>
                       @foreach ($chassises as $chasis)
-                      <option value="{{ $chasis->id }}" >{{ $chasis->chassis_code }}</option>
+                      <option value="{{ $chasis->id }}" @if($product->chassis_id == $chasis->id) selected @endif>{{ $chasis->chassis_code }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -155,7 +157,7 @@
                       <select class="form-control select2" name="enginecc_id" onchange="getDataEngineCC(this.value)">
                         <option >Select Engine CC</option>
                         @foreach ($enginecc as $engine)
-                        <option value="{{ $engine->id }}" >{{ $engine->enginecc }}</option>
+                        <option value="{{ $engine->id }}" @if($product->enginecc_id == $engine->id) selected @endif >{{ $engine->enginecc }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -163,12 +165,12 @@
 
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
-                    <label for="inputEmail3" class="col-form-label">Gears</label>
+                    <label for="inputEmail3" class="col-form-label">Number of doors</label>
 
-                      <select class="form-control select2" name="gear_id">
-                        <option >Select Gears </option>
-                        @foreach ($gears as $gear)
-                        <option value="{{ $gear->id }}" >{{ $gear->gear }}</option>
+                      <select class="form-control select2" name="door_id">
+                        <option >Select Number of doors </option>
+                        @foreach ($doors as $door)
+                        <option value="{{ $door->id }}" @if($product->door_id == $door->id) selected @endif>{{ $door->vehicle_door_no }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -176,12 +178,12 @@
 
                   <div class="col-sm-12 col-lg-4 col-md-4">
                     <div class="form-group">
-                    <label for="inputEmail3" class="col-form-label">Package </label>
+                    <label for="inputEmail3" class="col-form-label">Seating Capacity </label>
 
-                      <select class="form-control select2" name="package_id" onchange="getDataSeat(this.value)">
+                      <select class="form-control select2" name="seating_capacity_id" onchange="getDataSeat(this.value)">
                         <option >Select Seating Capacity</option>
-                        @foreach ($packages as $package)
-                        <option value="{{ $package->id }}" >{{ $package->name }}</option>
+                        @foreach ($seaters as $seat)
+                        <option value="{{ $seat->id }}" @if($product->seating_capacity_id == $seat->id) selected @endif>{{ $seat->seating_capacity }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -191,7 +193,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-success">Save</button>
+                  <button type="submit" class="btn btn-success">Update</button>
                   <button type="submit" class="btn btn-default float-right">Cancel</button>
                 </div>
                 <!-- /.card-footer -->
@@ -205,13 +207,13 @@
             <div class="card">
 
               <div class="card-header">
-                <h3 class="card-title col-12 py-3">List of Bike</h3>
+                <h3 class="card-title col-12 py-3">List of Passenger Vehicle</h3>
                 <div class="row">
 
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group ">
 
-                        <form method="post" action="{{route('product.man.select.bsearch')}}">
+                        <form method="post" action="{{route('product.man.select.csearch')}}">
                             @csrf
                         <select class="form-control select2" name="manufacture" onchange="this.form.submit()">
                           <option selected>Select vehicle Manufacture</option>
@@ -228,7 +230,7 @@
                   <div class="col-sm-12 col-lg-3 col-md-3">
                     <div class="form-group">
 
-                        <form method="post" action="{{route('product.model.select.bsearch')}}">
+                        <form method="post" action="{{route('product.model.select.csearch')}}">
                             @csrf
                         <select class="form-control select2" name="model" onchange="this.form.submit()">
                           <option selected>Select vehicle Model</option>
@@ -239,12 +241,27 @@
                         </form>
                     </div>
                   </div>
+                  <div class="col-sm-12 col-lg-3 col-md-3">
+                    <div class="form-group">
+
+                        <form method="post" action="{{route('product.chasis.select.csearch')}}">
+                            @csrf
+                        <select class="form-control select2" name="chasis" onchange="this.form.submit()">
+
+                          <option selected>Select Chassis code</option>
+                          @foreach ($chassises as $chasis)
+                          <option value="{{ $chasis->id }}" >{{ $chasis->chassis_code }}</option>
+                          @endforeach
+
+                        </select>
+                        </form>
+                    </div>
+                  </div>
 
 
-
-                  <div class="col-sm-12 col-lg-6 col-md-6">
+                    <div class="col-sm-12 col-lg-3 col-md-3">
                       <div class="form-group">
-                        <form action="{{ route('product.search.bword') }}" method="POST">
+                        <form action="{{ route('product.search.cword') }}" method="POST">
                             @csrf
                         <div class="input-group input-group-sm">
                         <input type="search" class="form-control form-control-sm" placeholder="" name="word">
@@ -271,7 +288,7 @@
                       <th>Vehicle</th>
                       <th>Fuel Type</th>
                       <th>Body Type</th>
-                      {{-- <th>Orgin </th> --}}
+                      <th>Orgin </th>
                       <th class="text-center">Action</th>
                     </tr>
                   </thead>
@@ -286,8 +303,8 @@
                         <td>{{ $product->name }}</td>
                       <td>{{ $product->fueltype->fuel_type }}</td>
                       <td>{{ $product->bodytype->type_name }}</td>
-                      {{-- <td>{{ $product->package->name }}</td> --}}
-                      <td class="text-center"><a href="{{ route('product.edit.bike',$product->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
+                      <td>{{ $product->drivesystem->drive_system }}</td>
+                      <td class="text-center"><a href="{{ route('products.edit',$product->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
 
                         {{-- <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td> --}}
                         <form action="{{ route('products.destroy',$product->id) }}"
