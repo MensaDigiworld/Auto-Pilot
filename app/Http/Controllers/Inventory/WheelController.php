@@ -16,8 +16,8 @@ class WheelController extends Controller
      */
     public function index()
     {
-        $wheels= Wheel::all();
-        return view('inventory.add_vehicle_wheel',compact('wheels'));
+        $wheels = Wheel::paginate(5);
+        return view('inventory.add_vehicle_wheel', compact('wheels'));
     }
 
     /**
@@ -38,7 +38,7 @@ class WheelController extends Controller
      */
     public function store(StoreWheelRequest $request)
     {
-        $data= Wheel::create($request->all());
+        $data = Wheel::create($request->all());
         return back();
     }
 
@@ -61,8 +61,8 @@ class WheelController extends Controller
      */
     public function edit(Wheel $wheel)
     {
-        $wheels= Wheel::all();
-        return view('inventory.add_vehicle_wheel',compact('wheel','wheels'));
+        $wheels = Wheel::paginate(5);
+        return view('inventory.add_vehicle_wheel', compact('wheel', 'wheels'));
     }
 
     /**

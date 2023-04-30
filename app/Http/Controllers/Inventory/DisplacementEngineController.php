@@ -16,7 +16,7 @@ class DisplacementEngineController extends Controller
      */
     public function index()
     {
-        $engineccs = DisplacementEngine::all();
+        $engineccs = DisplacementEngine::paginate(5);
         return view('inventory.add_vehicle_engine_cc', compact('engineccs'));
     }
 
@@ -61,7 +61,7 @@ class DisplacementEngineController extends Controller
      */
     public function edit(DisplacementEngine $displacementEngine)
     {
-        $engineccs = DisplacementEngine::all();
+        $engineccs = DisplacementEngine::paginate(5);
         return view('inventory.add_vehicle_engine_cc', compact('engineccs', 'displacementEngine'));
     }
 

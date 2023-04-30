@@ -15,6 +15,7 @@ use App\Models\Manufacture;
 use App\Models\PackageTrimVariant;
 use App\Models\SeatingCapacity;
 use App\Models\Transmission;
+use App\Models\VehicleCategory;
 use App\Models\VehicleChassisCode;
 use App\Models\VehicleDoor;
 use App\Models\VehicleModel;
@@ -527,5 +528,48 @@ class ProductController extends Controller
 
 
         return view('inventory.add_vehicle_bike', $data);
+    }
+
+
+    public function vehicleList()
+    {
+        $data['categories'] = VehicleCategory::all();
+        $data['manufacturers'] = Manufacture::all();
+        $data['models'] = VehicleModel::all();
+        $data['products'] = Product::paginate(10);
+        return view('inventory.list_vehicle', $data);
+    }
+
+    public function vehicleTypeSearch(Request $request)
+    {
+        $data['categories'] = VehicleCategory::all();
+        $data['manufacturers'] = Manufacture::all();
+        $data['models'] = VehicleModel::all();
+        $data['products'] = Product::where('category_id', $request->type)->paginate(10);
+        return view('inventory.list_vehicle', $data);
+    }
+    public function vehicleManSearch(Request $request)
+    {
+        $data['categories'] = VehicleCategory::all();
+        $data['manufacturers'] = Manufacture::all();
+        $data['models'] = VehicleModel::all();
+        $data['products'] = Product::where('manufacture_id', $request->manufacture)->paginate(10);
+        return view('inventory.list_vehicle', $data);
+    }
+    public function vehicleModelSearch(Request $request)
+    {
+        $data['categories'] = VehicleCategory::all();
+        $data['manufacturers'] = Manufacture::all();
+        $data['models'] = VehicleModel::all();
+        $data['products'] = Product::where('model_id', $request->model)->paginate(10);
+        return view('inventory.list_vehicle', $data);
+    }
+    public function vehicleAllSearch(Request $request)
+    {
+        $data['categories'] = VehicleCategory::all();
+        $data['manufacturers'] = Manufacture::all();
+        $data['models'] = VehicleModel::all();
+        $data['products'] = Product::search($request->word)->paginate(10);
+        return view('inventory.list_vehicle', $data);
     }
 }

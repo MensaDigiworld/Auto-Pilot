@@ -20,7 +20,7 @@ class PackageTrimVariantController extends Controller
     {
         $models = VehicleModel::all();
         $manufacturerers = Manufacture::all();
-        $packages = PackageTrimVariant::orderBy('id', 'DESC')->paginate(10);
+        $packages = PackageTrimVariant::paginate(5);
         return view('inventory.add_vehicle_package', compact('models', 'manufacturerers', 'packages'));
     }
 
@@ -67,7 +67,7 @@ class PackageTrimVariantController extends Controller
     {
         $models = VehicleModel::all();
         $manufacturerers = Manufacture::all();
-        $packages = PackageTrimVariant::orderBy('id', 'DESC')->paginate(10);
+        $packages = PackageTrimVariant::paginate(5);
         return view('inventory.add_vehicle_package', compact('models', 'manufacturerers', 'packages', 'packageTrimVariant'));
     }
 

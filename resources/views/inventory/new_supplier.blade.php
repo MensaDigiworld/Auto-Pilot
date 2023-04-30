@@ -113,8 +113,10 @@
                                     <div class="col-sm-4">
                                         <select class="form-control select2" name="enlistment_type">
                                             <option>Select</option>
-                                            <option value="xeon">Xeon Car</option>
-                                            <option value="monspeed">Monspeed</option>
+                                            <option value="xeon" @isset($supplier)
+                                            {{ $supplier->enlistment_type == "xeon" ? 'selected' : ''  }}@endisset>Xeon Car</option>
+                                            <option value="monspeed" @isset($supplier)
+                                            {{ $supplier->enlistment_type == "monspeed" ? 'selected' : ''  }}@endisset>Monspeed</option>
 
                                         </select>
                                     </div>
@@ -174,8 +176,10 @@
 
                                         <select class="form-control select2" name="country_code">
                                             <option>Select Country</option>
-                                            <option value="1">Bangladesh</option>
-                                            <option value="2">India</option>
+                                            <option value="1" @isset($supplier)
+                                            {{ $supplier->country_code == 1 ? 'selected' : ''  }}@endisset>Bangladesh</option>
+                                            <option value="2" @isset($supplier)
+                                            {{ $supplier->country_code == 2 ? 'selected' : ''  }}@endisset>India</option>
 
                                         </select>
                                     </div>
@@ -343,8 +347,8 @@
                                         <h4 class="col-sm-12">Bank Acccount List</h4>
                                         <div class="col-sm-6 float-sm-right">
 
-                                            <a href="" class="btn btn-sm btn-danger float-right  mx-2"
-                                                id="remove">Remove</a>
+                                            {{-- <a href="" class="btn btn-sm btn-danger float-right  mx-2"
+                                                id="remove">Remove</a> --}}
                                             {{-- <a href="" class="btn btn-sm btn-success float-right" id="add">Add</a> --}}
                                             <button type="button" class="btn btn-sm btn-danger float-right  mx-2"
                                                 data-toggle="modal" data-target="#modal-default">

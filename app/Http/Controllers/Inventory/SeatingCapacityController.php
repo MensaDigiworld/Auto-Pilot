@@ -16,7 +16,7 @@ class SeatingCapacityController extends Controller
      */
     public function index()
     {
-        $seatingCapacities = SeatingCapacity::all();
+        $seatingCapacities = SeatingCapacity::paginate(5);
         return view('inventory.add_vehicle_seating_capacity', compact('seatingCapacities'));
     }
 
@@ -61,7 +61,7 @@ class SeatingCapacityController extends Controller
      */
     public function edit(SeatingCapacity $seatingCapacity)
     {
-        $seatingCapacities = SeatingCapacity::all();
+        $seatingCapacities = SeatingCapacity::paginate(5);
         return view('inventory.add_vehicle_seating_capacity', compact('seatingCapacities', 'seatingCapacity'));
     }
 

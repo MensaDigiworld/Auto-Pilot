@@ -220,8 +220,8 @@
             </ul>
           </li>
 
-          <li class="nav-item {{ rootmenuactive(['inventory.add_vehicle_seating_capacity','displacementEngines.index','inventory.add_vehicle_color','inventory.add_vehicle_wheel','inventory.add_vehicle_loading_capacity','inventory.add_vehicle_drive_system','inventory.add_vehicle_gear','transmissions.index','vehicleDoors.index','fuelTypes.index','packageTrimVariants.index','inventory.add_vehicle_category','inventory.add_vehicle_manufacture','inventory.add_vehicle_model','bodyTypes.index','vehicleChassisCodes.index'])}}">
-            <a href="#" class="nav-link {{ menuactive(['inventory.add_vehicle_seating_capacity','displacementEngines.index','inventory.add_vehicle_color','inventory.add_vehicle_wheel','inventory.add_vehicle_loading_capacity','inventory.add_vehicle_drive_system','inventory.add_vehicle_gear','transmissions.index','vehicleDoors.index','fuelTypes.index','packageTrimVariants.index','inventory.add_vehicle_category','inventory.add_vehicle_manufacture','inventory.add_vehicle_model','bodyTypes.index','vehicleChassisCodes.index'])}}">
+          <li class="nav-item {{ rootmenuactive(['inventory.add_vehicle_seating_capacity','displacementEngines.index','inventory.add_vehicle_color','inventory.add_vehicle_wheel','inventory.add_vehicle_loading_capacity','inventory.add_vehicle_drive_system','inventory.add_vehicle_gear','transmissions.index','vehicleDoors.index','fuelTypes.index','packageTrimVariants.index','inventory.add_vehicle_category','inventory.vehicle_category_edit','inventory.add_vehicle_manufacture','inventory.add_vehicle_model','bodyTypes.index','vehicleChassisCodes.index'])}}">
+            <a href="#" class="nav-link {{ menuactive(['inventory.add_vehicle_seating_capacity','displacementEngines.index','inventory.add_vehicle_color','inventory.add_vehicle_wheel','inventory.add_vehicle_loading_capacity','inventory.add_vehicle_drive_system','inventory.add_vehicle_gear','transmissions.index','vehicleDoors.index','fuelTypes.index','packageTrimVariants.index','inventory.add_vehicle_category','inventory.vehicle_category_edit','inventory.add_vehicle_manufacture','inventory.add_vehicle_model','bodyTypes.index','vehicleChassisCodes.index'])}}">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>
                 Vehicle Setup
@@ -339,8 +339,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item {{ rootmenuactive(['suppliers.create','suppliers.index','inventory.new_business_partner','inventory.list_business_partner','inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}}">
-            <a href="#" class="nav-link {{ menuactive(['suppliers.create','suppliers.index','inventory.new_business_partner','inventory.list_business_partner','inventory.new_warehouse_showroom','inventory.list_warehouse_showroom'])}}">
+          <li class="nav-item {{ rootmenuactive(['suppliers.create','suppliers.index','businessPartners.create','businessPartners.index','showrooms.index','showrooms.create'])}}">
+            <a href="#" class="nav-link {{ menuactive(['suppliers.create','suppliers.index','businessPartners.create','businessPartners.index','showrooms.index','showrooms.create'])}}">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>
                 Business Partner

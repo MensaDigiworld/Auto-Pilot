@@ -18,7 +18,7 @@ class BusinessPartnerController extends Controller
      */
     public function index()
     {
-        $business = BusinessPartner::paginate(5);
+        $business = BusinessPartner::paginate(10);
 
         // return $business;
         return view('inventory.list_business_partner', compact('business'));

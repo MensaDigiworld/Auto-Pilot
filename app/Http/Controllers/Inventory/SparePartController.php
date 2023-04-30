@@ -18,7 +18,7 @@ class SparePartController extends Controller
     public function index()
     {
 
-        $spareParts = SparePart::all();
+        $spareParts = SparePart::paginate(10);
         return view('inventory.list_spare_parts', compact('spareParts'));
     }
 

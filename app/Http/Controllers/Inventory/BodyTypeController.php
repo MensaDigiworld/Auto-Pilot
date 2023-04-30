@@ -17,7 +17,7 @@ class BodyTypeController extends Controller
      */
     public function index()
     {
-        $bodytypes = BodyType::orderBy('id', 'DESC')->paginate(10);
+        $bodytypes = BodyType::paginate(5);
         $categories = VehicleCategory::all();
         return view('inventory.add_vehicle_bodytype', compact('bodytypes', 'categories'));
     }
@@ -76,7 +76,7 @@ class BodyTypeController extends Controller
      */
     public function edit(BodyType $bodyType)
     {
-        $bodytypes = BodyType::orderBy('id', 'DESC')->paginate(10);
+        $bodytypes = BodyType::paginate(5);
         $categories = VehicleCategory::all();
         return view('inventory.add_vehicle_bodytype', compact('bodytypes', 'bodyType', 'categories'));
     }

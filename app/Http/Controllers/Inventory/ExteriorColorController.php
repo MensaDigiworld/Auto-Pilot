@@ -16,7 +16,7 @@ class ExteriorColorController extends Controller
      */
     public function index()
     {
-        $exteriorcolors = Exteriorcolor::all();
+        $exteriorcolors = Exteriorcolor::paginate(5);
         return view('inventory.add_vehicle_color_exterior', compact('exteriorcolors'));
     }
 

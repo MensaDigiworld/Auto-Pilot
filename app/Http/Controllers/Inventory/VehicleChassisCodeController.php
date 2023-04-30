@@ -17,7 +17,7 @@ class VehicleChassisCodeController extends Controller
      */
     public function index()
     {
-        $codes = VehicleChassisCode::orderBy('id', 'DESC')->paginate(10);
+        $codes = VehicleChassisCode::paginate(5);
         $categories = VehicleCategory::all();
         return view('inventory.add_vehicle_chassis_code', compact('codes', 'categories'));
     }
@@ -63,7 +63,7 @@ class VehicleChassisCodeController extends Controller
      */
     public function edit(VehicleChassisCode $vehicleChassisCode)
     {
-        $codes = VehicleChassisCode::orderBy('id', 'DESC')->paginate(10);
+        $codes = VehicleChassisCode::paginate(5);
         $categories = VehicleCategory::all();
         return view('inventory.add_vehicle_chassis_code', compact('codes', 'categories', 'vehicleChassisCode'));
     }

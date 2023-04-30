@@ -16,7 +16,7 @@ class VehicleDoorController extends Controller
      */
     public function index()
     {
-        $vehicledoors = VehicleDoor::all();
+        $vehicledoors = VehicleDoor::paginate(5);
         return view('inventory.add_vehicle_door', compact('vehicledoors'));
     }
 
@@ -61,7 +61,7 @@ class VehicleDoorController extends Controller
      */
     public function edit(VehicleDoor $vehicleDoor)
     {
-        $vehicledoors = VehicleDoor::all();
+        $vehicledoors = VehicleDoor::paginate(5);
         return view('inventory.add_vehicle_door', compact('vehicledoors', 'vehicleDoor'));
     }
 

@@ -105,10 +105,10 @@
                       <label for="inputEmail3" class="col-form-label">Model <span class="text-danger fw-600">*</span></label>
 
                     <select class="form-control select2" name="model_id" id="model_id" onchange="getDataModel(this.value)">
-                      <option >Select vehicle Model</option>
+                      {{-- <option >Select vehicle Model</option>
                       @foreach ($models as $model)
                       <option value="{{ $model->id }}" >{{ $model->name }}</option>
-                      @endforeach
+                      @endforeach --}}
                     </select>
                   </div>
                 </div>
@@ -299,10 +299,11 @@
                       {{-- <td>Toyota-Aqua (NHP10, 1500cc, Auto, 2WD, 5 seater) Manufacture-Model (Chassis Code, CC, Auto,
                         2WD, 5 Seater,Hybrid)</td> --}}
                         <td>{{ $product->name }}</td>
-                      <td>{{ $product->fueltype->fuel_type }}</td>
-                      <td>{{ $product->bodytype->type_name }}</td>
-                      <td>{{ $product->drivesystem->drive_system }}</td>
-                      <td class="text-center"><a href="{{ route('products.edit',$product->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
+                      <td>{{ $product->fueltype->fuel_type ?? '' }}</td>
+                      <td>{{ $product->bodytype->type_name ?? '' }}</td>
+                      <td>{{ $product->drivesystem->drive_system ?? '' }}</td>
+                      <td class="text-center">
+                        <a href="{{ route('products.edit',$product->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
 
                         {{-- <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td> --}}
                         <form action="{{ route('products.destroy',$product->id) }}"

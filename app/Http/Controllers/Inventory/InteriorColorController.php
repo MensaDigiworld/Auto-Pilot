@@ -17,7 +17,7 @@ class InteriorColorController extends Controller
      */
     public function index()
     {
-        $interiorcolors = Interiorcolor::all();
+        $interiorcolors = Interiorcolor::paginate(5);
         return view('inventory.add_vehicle_color_interior', compact('interiorcolors'));
     }
 

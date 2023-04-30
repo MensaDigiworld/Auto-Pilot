@@ -36,7 +36,7 @@
 
                     @csrf
 
-                    <input type="text" name="costType_id" value="{{ $costType->id }}">
+                    <input type="hidden" name="costType_id" value="{{ $costType->id }}">
 
                     <div class="form-group form-group-sm row">
 
@@ -54,14 +54,14 @@
 
                             <div class="icheck-success d-inline">
                             <input type="radio" name="status"  value="1" id="Product"
-                                @if($costType->status == 1) Cheecked @endif
+                                @if($costType->status =='1') Checked @endif
                             >
                             <label for="Product">
                               Active
                             </label>
                             </div>
                             <div class="icheck-success d-inline">
-                            <input type="radio" name="status" id="Service" value="0" @if($costType->status == 0) Cheecked @endif>
+                            <input type="radio" name="status" id="Service" value="0" @if($costType->status == '0') Cheecked @endif>
                             <label for="Service">
                               Deactive
                             </label>

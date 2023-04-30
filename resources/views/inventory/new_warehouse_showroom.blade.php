@@ -98,8 +98,10 @@
                       <div class="col-sm-12 col-lg-10 col-md-10">
                         <select class="form-control select2 " name="city_code">
                           <option>Select City</option>
-                          <option value="1">Chittagong</option>
-                          <option value="2">Dhaka</option>
+                          <option value="1" @isset($showroom)
+                          {{ $showroom->city_code == 1 ? 'selected' : ''  }}@endisset>Chittagong</option>
+                          <option value="2" @isset($showroom)
+                          {{ $showroom->city_code == 2 ? 'selected' : ''  }}@endisset>Dhaka</option>
                         </select>
                       </div>
 

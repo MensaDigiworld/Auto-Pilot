@@ -18,7 +18,7 @@ class ShowroomController extends Controller
      */
     public function index()
     {
-        $showrooms = Showroom::all();
+        $showrooms = Showroom::paginate(10);
         return view('inventory.list_warehouse_showroom', compact('showrooms'));
     }
 

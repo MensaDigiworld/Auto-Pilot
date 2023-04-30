@@ -31,20 +31,21 @@
             <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">Update Vehicle Category</h3>
-               
+
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form action="{{route('inventory.vehicle_category_update')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                 @csrf
-                <div class="card-body">                  
+                <input type="hidden" name="id" value="{{ $catid->id}}">
+                <div class="card-body">
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category Name <span class="text-danger fw-600">*</span></label>
                     <div class="col-sm-10">
                       <input type="text" class="form-control  form-control-sm" id="inputEmail3" value="{{ $catid->name}}" name="name" placeholder="e.g Passenger/Commercial/Bike">
                       <span class="text-danger">@error('name') {{ $message }} @enderror</span>
                     </div>
-                  </div>                  
+                  </div>
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
@@ -57,9 +58,9 @@
                         </div>
                         </div>
                   </div>
-                  <img src="{{ asset('public/cover_image/'.$catid->image.'') }}" class="img-thumbnail" width="100" height="100" />
+                  <img src="{{ asset('public/cover_image') }}/{{ $catid->image}}" class="img-thumbnail" width="100" height="100" />
                   </div>
-                  
+
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
@@ -77,7 +78,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">List of Vehicle Category</h3>
-                
+
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered">
@@ -95,12 +96,12 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$vehicle_categori->name}}</td>
                       <td><div class="widget-user-image text-center">
-                        <img src="../public/cover_image/{{ $vehicle_categori->image}}" class="img-circle img-thumbnail" style="height:60px; width:60px;" />
+                        <img src="{{ asset('public/cover_image') }}/{{ $vehicle_categori->image}}" class="img-circle img-thumbnail" style="height:60px; width:60px;" />
                       </div>
                     </td>
                     <td class="text-center"><a href="{{ route('inventory.vehicle_category_edit',['id' => $vehicle_categori->id]) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                        </td>                      
-                    </tr>       
+                        </td>
+                    </tr>
                    @endforeach
                   </tbody>
                 </table>
@@ -108,7 +109,7 @@
               <!-- /.card-body -->
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
 

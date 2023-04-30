@@ -287,7 +287,8 @@
                       <td>{{ $product->fueltype->fuel_type }}</td>
                       <td>{{ $product->bodytype->type_name }}</td>
                       {{-- <td>{{ $product->package->name }}</td> --}}
-                      <td class="text-center"><a href="{{ route('product.edit.bike',$product->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
+                      <td class="text-center">
+                        <a href="{{ route('product.edit.bike',$product->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
 
                         {{-- <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td> --}}
                         <form action="{{ route('products.destroy',$product->id) }}"

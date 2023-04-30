@@ -271,7 +271,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'Inventory'], function () {
 
     Route::get('/Add-Bike', [ProductController::class, 'addBike'])->name('inventory.add_vehicle_bike');
 
-    Route::get('/Vehicle-List', [Inventory::class, 'list_vehicle'])->name('inventory.list_vehicle');
+
+    Route::post('/product-vehicle-type-search', [ProductController::class, 'vehicleTypeSearch'])->name('product.vehicle.type.search');
+    Route::post('/product-vehicle-manufacture-search', [ProductController::class, 'vehicleManSearch'])->name('product.manall.select.search');
+    Route::post('/product-vehicle-model-search', [ProductController::class, 'vehicleModelSearch'])->name('product.model.search');
+    Route::post('/product-vehicle-all-search', [ProductController::class, 'vehicleAllSearch'])->name('product.all.search');
+    Route::get('/Vehicle-List', [ProductController::class, 'vehicleList'])->name('inventory.list_vehicle');
 
 
 

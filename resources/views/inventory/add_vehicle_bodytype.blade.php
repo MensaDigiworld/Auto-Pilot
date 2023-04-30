@@ -50,26 +50,26 @@
                       </div>
                     </div>
 
-                   
+
                     <div class="col-12">
                       <div class="form-group">
                         <label for="inputEmail3" class="col-form-label">Category <span class="text-danger fw-600">*</span></label>
-                    
+
                       <select class="form-control select2" name="category_id">
                         <option >Select vehicle Category</option>
                         @foreach ($categories as $item)
-                            
-                      
-                        <option value="{{ $item->id }}"  @if(isset($bodyType))($item->id == $bodyType->category_id) selected @endif>{{ $item->name }}</option>
-                        @endforeach       
+
+
+                        <option value="{{ $item->id }}" @isset($bodyType) @if($item->id == $bodyType->category_id ) selected @endif @endisset  >{{ $item->name }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
-                                    
+
                   <div class="col-12">
                     <div class="form-group">
                     <label for="inputEmail3" class="col-form-label">Image</label>
-                    
+
                       <div class="input-group">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="image">
@@ -78,6 +78,7 @@
                         <div class="input-group-append">
                         </div>
                         </div>
+                        <img src="{{ asset('public/cover_image') }}/{{ $item->image }}" class="img-circle img-thumbnail" height="100" width="100" alt="">
                   </div>
                   </div>
                 </div>
@@ -91,7 +92,7 @@
                     Save
                     @endisset
                     </button>
-                    <a href="{{ route('bodyTypes.index') }}"  class="btn btn-default float-right">Cancel</a> 
+                    <a href="{{ route('bodyTypes.index') }}"  class="btn btn-default float-right">Cancel</a>
          </div>
                 <!-- /.card-footer -->
               </form>
@@ -102,10 +103,10 @@
 
           <div class="col-lg-7 col-md-7 col-sm-12">
             <div class="card">
-              
+
               <div class="card-header">
                 <h3 class="card-title">List of Body Type/ Vehicle Type</h3>
-                
+
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered">
@@ -120,8 +121,8 @@
                   </thead>
                   <tbody>
                     @foreach ($bodytypes as $item)
-                        
-                
+
+
                     <tr>
                       <td>{{ $loop->index +1 }}</td>
                       <td>{{ $item->type_name }}</td>
@@ -136,12 +137,12 @@
                           @method('DELETE')
                           <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
                               <i class="fas fa-trash-alt"></i>
-                             
+
                           </button>
                       </form>
-                 </td>   
-                    </tr>       
-                    @endforeach      
+                 </td>
+                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -158,7 +159,7 @@
               </div>
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
 

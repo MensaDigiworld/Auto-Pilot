@@ -67,6 +67,11 @@
                     </tr>
                     @endforeach
                   </tbody>
+
+                    <ul class="pagination pagination-md m-0 float-right">
+                      {{ $types->links() }}
+                    </ul>
+
                 </table>
               </div>
               <!-- /.card-body -->

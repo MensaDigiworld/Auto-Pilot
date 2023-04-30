@@ -42,49 +42,52 @@
                       <div class="form-group">
                       <label for="inputEmail3" class="col-form-label">Model Name <span class="text-danger fw-600">*</span></label>
                       <input type="text" class="form-control form-control-sm" id="inputEmail3" value="{{ old('name')}}" name="name" placeholder="Type">
-                      <span class="text-danger text-sm text-bold">@error('name') {{ $message }} @enderror</span>  
+                      <span class="text-danger text-sm text-bold">@error('name') {{ $message }} @enderror</span>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="inputEmail3" class="col-form-label">Manufacturer <span class="text-danger fw-600">*</span></label>                    
+                        <label for="inputEmail3" class="col-form-label">Manufacturer <span class="text-danger fw-600">*</span></label>
                       <select class="form-control select2" name="manufacture_id">
                         <option selected disabled>Select vehicle Manufacturer</option>
                          @foreach ($vehiclemanufacture as $manufactures)
                           <option value="{{ $manufactures->id }}">{{ $manufactures->name }}</option>
-                        @endforeach             
+                        @endforeach
                       </select>
                        <span class="text-danger text-sm text-bold">@error('manufacture_id') {{ $message }} @enderror</span>
                     </div>
                   </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="inputEmail3" class="col-form-label">Category <span class="text-danger fw-600">*</span></label>                    
+                        <label for="inputEmail3" class="col-form-label">Category <span class="text-danger fw-600">*</span></label>
                       <select class="form-control select2" name="category_id">
                         <option selected disabled>Select vehicle Category</option>
                         @foreach ($vehicle_category as $category)
                           <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach               
+                        @endforeach
                       </select>
                        <span class="text-danger text-sm text-bold">@error('category_id') {{ $message }} @enderror</span>
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="form-group">
-                    <label for="inputEmail3" class="col-form-label">Country of Origin</label>                    
+                    <label for="inputEmail3" class="col-form-label">Country of Origin</label>
                       <select class="form-control select2" name="country_id">
                         <option  selected disabled>Select Country</option>
-                         @foreach ($country as $countrys)
+                         {{-- @foreach ($country as $countrys)
                         <option value="{{ $countrys->id }}">{{ $countrys->name }}</option>
-                      @endforeach          
-                      </select>                     
+                            @endforeach  --}}
+                            <option value="1">Bangladesh</option>
+                            <option value="2">India</option>
+
+                      </select>
                     </div>
                   </div>
-                  
+
                   <div class="col-12">
                     <div class="form-group">
-                    <label for="inputEmail3" class="col-form-label">Image</label>                    
+                    <label for="inputEmail3" class="col-form-label">Image</label>
                       <div class="input-group">
                         <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="image">
@@ -101,7 +104,7 @@
                 <div class="card-footer">
                   <button type="submit" class="btn btn-success">Save</button>
                   <a href="{{ route('inventory.add_vehicle_model') }}" class="btn btn-default float-right">Cancel</a>
-                  
+
                 </div>
                 <!-- /.card-footer -->
               </form>
@@ -114,7 +117,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">List of Vehicle Model</h3>
-                
+
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered">
@@ -134,10 +137,10 @@
                     <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $model->name }}</td>
-                    <td>{{ optional($model->manufacture)->name }}</td>
-                    <td>{{ optional($model->category)->name }}</td>
-                    <td>{{ optional($model->country)->name }}</td>
-                   
+                    <td>{{ $model->manufacture->name }}</td>
+                    <td>{{ $model->category->name }}</td>
+                    <td>{{ $model->country_id == 1 ?'Bangladesh':'India' }}</td>
+
                     <td>
                       <div class="widget-user-image">
                         <img src="../public/cover_image/{{ $model->image}}" class="img-circle img-thumbnail" style="height:60px; width:60px;" />
@@ -147,8 +150,8 @@
                       <a href="{{ route('inventory.model_edit',['id' => $model->id]) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
                         <a href="{{ route('inventory.model_delete',['id' => $model->id]) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
                     </td>
-                      
-                    </tr>       
+
+                    </tr>
                    @endforeach
                   </tbody>
                 </table>
@@ -166,10 +169,10 @@
               </div>
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
-        
+
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

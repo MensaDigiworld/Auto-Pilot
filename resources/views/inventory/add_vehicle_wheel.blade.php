@@ -75,7 +75,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">List of Wheels</h3>
-                
+
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered">
@@ -88,8 +88,8 @@
                   </thead>
                   <tbody>
                   @foreach ($wheels as $wheel)
-                      
-                  
+
+
                     <tr>
                       <td>{{ $loop->index +1 }}</td>
                       <td>{{ $wheel->number }}</td>
@@ -101,28 +101,29 @@
                             @method('DELETE')
                             <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
                                 <i class="fas fa-trash-alt"></i>
-                                
+
                             </button>
                         </form>
-                    </tr>       
+                    </tr>
                     @endforeach
-                          
+
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-md m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
+                  {{ $wheels->links() }}
                 </ul>
               </div>
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

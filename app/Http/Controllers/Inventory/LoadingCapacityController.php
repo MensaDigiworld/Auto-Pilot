@@ -16,7 +16,7 @@ class LoadingCapacityController extends Controller
      */
     public function index()
     {
-        $loadingcapacities = LoadingCapacity::all();
+        $loadingcapacities = LoadingCapacity::paginate(5);
         return view('inventory.add_vehicle_loading_capacity', compact('loadingcapacities'));
     }
 
@@ -61,7 +61,7 @@ class LoadingCapacityController extends Controller
      */
     public function edit(LoadingCapacity $loadingCapacity)
     {
-        $loadingcapacities = LoadingCapacity::all();
+        $loadingcapacities = LoadingCapacity::paginate(5);
         return view('inventory.add_vehicle_loading_capacity', compact('loadingcapacities', 'loadingCapacity'));
     }
 

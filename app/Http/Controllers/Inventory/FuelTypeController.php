@@ -16,7 +16,7 @@ class FuelTypeController extends Controller
      */
     public function index()
     {
-        $fuels = FuelType::all();
+        $fuels = FuelType::paginate(5);
         return view('inventory.add_vehicle_fuel', compact('fuels'));
     }
 
@@ -61,7 +61,7 @@ class FuelTypeController extends Controller
      */
     public function edit(FuelType $fuelType)
     {
-        $fuels = FuelType::all();
+        $fuels = FuelType::paginate(5);
         return view('inventory.add_vehicle_fuel', compact('fuels', 'fuelType'));
     }
 

@@ -86,7 +86,7 @@
                       <th>Sales Price </th>
                       <th>Vat Amount</th>
                       <th>Discount </th>
-                      <th>Status</th>
+                      {{-- <th>Status</th> --}}
                       <th colspan="2" class="text-center">Action</th>
                     </tr>
                   </thead>
@@ -96,14 +96,14 @@
 
 
                     <tr>
-                      <td>{{ $loop->index++ }}</td>
+                      <td>{{ $loop->index+1 }}</td>
+                      <td>{{ $sparePart->type }}</td>
                       <td>{{ $sparePart->name }}</td>
-                      <td>Android DVD Player</td>
-                      <td>2159875</td>
-                      <td>10000.00</td>
-                      <td>100.00</td>
-                      <td>0.00 (0.00)</td>
-                      <td>Active</td>
+                      <td>{{ $sparePart->part_number }}</td>
+                      <td>{{ $sparePart->price }}</td>
+                      <td>{{ $sparePart->vat }} ({{ $sparePart->vat_percent }})</td>
+                      <td>{{ $sparePart->discount_percent }} ({{ $sparePart->discount}})</td>
+                      {{-- <td>Active</td> --}}
                       <td class="text-center">
                         <a href="{{ route('spareparts.edit',$sparePart->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i> Edit</a>
 
@@ -128,11 +128,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-md m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                    {{ $spareParts->links() }}
                 </ul>
               </div>
             </div>

@@ -16,7 +16,7 @@ class GearController extends Controller
      */
     public function index()
     {
-        $gears = Gear::all();
+        $gears = Gear::paginate(5);
         return view('inventory.add_vehicle_gears', compact('gears'));
     }
 
@@ -61,7 +61,7 @@ class GearController extends Controller
      */
     public function edit(Gear $gear)
     {
-        $gears = Gear::all();
+        $gears = Gear::paginate(5);
         return view('inventory.add_vehicle_gears', compact('gears', 'gear'));
     }
 

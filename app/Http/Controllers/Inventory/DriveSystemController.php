@@ -16,7 +16,7 @@ class DriveSystemController extends Controller
      */
     public function index()
     {
-        $driveSystems = DriveSystem::all();
+        $driveSystems = DriveSystem::paginate(5);
         return view('inventory.add_vehicle_drive_system', compact('driveSystems'));
     }
 
@@ -61,7 +61,7 @@ class DriveSystemController extends Controller
      */
     public function edit(DriveSystem $driveSystem)
     {
-        $driveSystems = DriveSystem::all();
+        $driveSystems = DriveSystem::paginate(5);
         return view('inventory.add_vehicle_drive_system', compact('driveSystems', 'driveSystem'));
     }
 

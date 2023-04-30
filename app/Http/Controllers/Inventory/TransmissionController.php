@@ -17,7 +17,7 @@ class TransmissionController extends Controller
     public function index()
     {
         // return "ok";
-        $transmissions = Transmission::all();
+        $transmissions = Transmission::paginate(5);
         return view('inventory.add_vehicle_transmission', compact('transmissions'));
     }
 
@@ -62,7 +62,7 @@ class TransmissionController extends Controller
      */
     public function edit(Transmission $transmission)
     {
-        $transmissions = Transmission::all();
+        $transmissions = Transmission::paginate(5);
         return view('inventory.add_vehicle_transmission', compact('transmissions', 'transmission'));
     }
 

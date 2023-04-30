@@ -17,7 +17,7 @@ class CostTypeController extends Controller
      */
     public function index()
     {
-        $types = CostType::all();
+        $types = CostType::paginate(10);
         return view('inventory.list-of-cost', compact('types'));
     }
 

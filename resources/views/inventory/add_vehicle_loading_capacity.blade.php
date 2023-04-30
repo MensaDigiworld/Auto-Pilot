@@ -60,9 +60,9 @@
                     Update
                     @else
                     Save
-                  @endisset  
-                  
-                  
+                  @endisset
+
+
                   </button>
                   <a href="{{ route('loadingCapacities.index') }}" class="btn btn-default float-right">Cancel</a>
                   {{-- <button type="submit" class="btn btn-default float-right">Cancel</button> --}}
@@ -78,7 +78,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">List of Loading Capacity</h3>
-                
+
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-bordered">
@@ -91,43 +91,45 @@
                   </thead>
                   <tbody>
                     @foreach ($loadingcapacities as $item)
-                        
-                  
+
+
                     <tr>
                       <td>{{ $loop->index +1 }}</td>
                       <td>{{ $item->loading_capacity }}</td>
                       <td class="text-center"><a href="{{ route('loadingCapacities.edit',$item->id) }}" class="btn btn-sm btn-info"> <i class="fas fa-edit"></i></a>
-                          
-                        
+
+
                           <form action="{{ route('loadingCapacities.destroy',$item->id) }}"
                             method="POST" style="display: inline;">
                             @csrf()
                             @method('DELETE')
                             <button type="submit" onclick="return confirm('Are your sure?')" class="btn btn-danger btn-sm">
                                 <i class="fas fa-trash-alt"></i>
-                                
+
                             </button>
                         </form>
                         </td>
-                      
-                    </tr>       
-                    @endforeach   
+
+                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-md m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  {{-- <li class="page-item"><a class="page-link" href="#">«</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                  <li class="page-item"><a class="page-link" href="#">»</a></li> --}}
+
+                  {{  $loadingcapacities->links()}}
                 </ul>
               </div>
             </div>
             </div>
-        
+
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
